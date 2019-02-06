@@ -1,3 +1,20 @@
+Skip to content
+
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @Calder-MacLean Sign out
+0
+0 0 Richard-Herz/SEMethodsSet08103G1
+ Code  Issues 25  Pull requests 0  Projects 0  Wiki  Insights
+SEMethodsSet08103G1/db/world_db/world.sql
+fe5ea81  7 days ago
+@Calder-MacLean Calder-MacLean Changing folder structure for db folder
+
+5421 lines (5404 sloc)  389 KB
 -- MySQL dump 10.13  Distrib 5.1.51, for pc-linux-gnu (i686)
 --
 -- Host: 127.0.0.1    Database: world
@@ -5418,3 +5435,16 @@ SET AUTOCOMMIT=1;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2010-09-30 11:01:37
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Press h to open a hovercard with more details.
