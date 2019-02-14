@@ -1,10 +1,9 @@
-# USE CASE: 4 Produce a Report on the cities in a district organised by largest population to smallest
-
+# USE CASE: 3 Produce a Report on the population of people, people living in cities, and people not living in cities in each continent
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an *HR advisor* I want to produce a report on the cities in a district organised by largest population to smallest * so that *I can support population reporting of the district.*
+As an *HR advisor* I want to produce a report on the population of people, people living in cities, and people not living in cities in each continent so that *I can support population reporting of the continent.*
 
 ### Scope
 
@@ -16,11 +15,11 @@ Primary task.
 
 ### Preconditions
 
-We know the role.  Database contains current employee salary data.
+We know the role.  Database contains  city, country and continent data.
 
 ### Success End Condition
 
-A report is available for HR to provide to finance.
+A report is available to give to someone who wants the data to provide to finance.
 
 ### Failed End Condition
 
@@ -36,7 +35,7 @@ A request for finance information is sent to HR.
 
 ## MAIN SUCCESS SCENARIO
 
-1. Population analyst request information on city population in a region from largest to smallest.
+1. Population analyst request information on population of cities in a continent from largest to smallest.
 2. HR advisor captures name of the role to get salary information for.
 3. HR advisor extracts current salary information of all employees of the given role.
 4. HR advisor provides report to finance.
