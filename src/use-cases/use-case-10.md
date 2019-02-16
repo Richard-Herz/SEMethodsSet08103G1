@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-As an *HR advisor* I want to produce a report on the cities in a district organised by largest population to smallest * so that *I can support population reporting of the district.*
+As an *Population Information Worker* I want to produce a report on the cities in a district organised by largest population to smallest * so that *I can support population reporting of the district.*
 
 ### Scope
 
@@ -20,7 +20,7 @@ We know the role.  Database contains capital city data.
 
 ### Success End Condition
 
-A report is available for HR to provide to population analyst.
+A report is available for Population Information Worker to provide to population analyst.
 
 ### Failed End Condition
 
@@ -28,23 +28,22 @@ No report is produced.
 
 ### Primary Actor
 
-HR Advisor.
+Population Information Worker.
 
 ### Trigger
 
-A request for finance information is sent to HR.
-
+A request for population information is sent to Population Information Worker.
 ## MAIN SUCCESS SCENARIO
 
 1. Population analyst request information on city population in a district from largest to smallest.
-2. HR advisor captures name of the district to get city information for.
-3. HR advisor extracts  information for population of the district.
-4. HR advisor provides report to population analyst.
+2. Population Information Worker captures name of the district to get city information for.
+3. Population Information Worker extracts  information for population of the district.
+4. Population Information Worker provides report to population analyst.
 
 ## EXTENSIONS
 
-3. **Role does not exist**:
-    1. HR advisor informs finance no role exists.
+3. **Data does not exist**:
+    1. HR advisor informs population analyst data doesn't exist.
 
 ## SUB-VARIATIONS
 

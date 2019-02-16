@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-As an *HR advisor* I want to produce a report on the population of living in cities and people who don't live in a city in a region  so that *I can support population reporting of the region.*
+As an *Population Information Worker* I want to produce a report on the population of living in cities and people who don't live in a city in a region  so that *I can support population reporting of the region.*
 
 ### Scope
 
@@ -28,11 +28,11 @@ No report is produced.
 
 ### Primary Actor
 
-HR Advisor.
+Population Information Worker.
 
 ### Trigger
 
-A request for finance information is sent to HR.
+A request for population information is sent to Population Information Worker.
 
 ## MAIN SUCCESS SCENARIO
 
@@ -43,8 +43,8 @@ A request for finance information is sent to HR.
 
 ## EXTENSIONS
 
-3. **Role does not exist**:
-    1. HR advisor informs finance no role exists.
+3. **Data does not exist**:
+    1. HR advisor informs population analyst data doesn't exist.
 
 ## SUB-VARIATIONS
 
