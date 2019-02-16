@@ -1,4 +1,4 @@
-# USE CASE: 4 Produce a Report on the cities in a district organised by largest population to smallest
+# USE CASE: 7 Produce a Report on top N populated capital cities in a region where N is provided by the user
 
 ## CHARACTERISTIC INFORMATION
 

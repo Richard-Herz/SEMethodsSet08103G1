@@ -1,4 +1,4 @@
-# USE CASE: 4 Produce a Report on the cities in a district organised by largest population to smallest
+# USE CASE: 12 Produce a Report on the capital cities in the world organised by largest population to smallest
 
 ## CHARACTERISTIC INFORMATION
 

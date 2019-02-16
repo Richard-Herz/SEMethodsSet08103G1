@@ -34,11 +34,10 @@ HR Advisor.
 A request for finance information is sent to HR.
 
 ## MAIN SUCCESS SCENARIO
-
-1. Population analyst request information on population of cities in a continent from largest to smallest.
-2. HR advisor captures name of the role to get salary information for.
-3. HR advisor extracts current salary information of all employees of the given role.
-4. HR advisor provides report to finance.
+1. Population analyst request information on population of people living in cities and those who don't in a country.
+2. HR advisor captures name of the continent to get city information for.
+3. HR advisor extracts  information for population of the continent and then calculates the people who don't live in cities.
+4. HR advisor provides report to population analyst.
 
 ## EXTENSIONS
 
