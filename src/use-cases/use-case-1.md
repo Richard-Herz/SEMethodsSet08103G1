@@ -20,7 +20,7 @@ We know the role.  Database contains city and country population data.
 
 ### Success End Condition
 
-A report is available to give to someone who wants the data for people living in cities and those who don't in a country.
+A report is available to give to population analyst.
 
 ### Failed End Condition
 

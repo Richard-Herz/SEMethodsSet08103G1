@@ -19,7 +19,7 @@ We know the role. Database contains data for all the cities and countries and re
 
 ### Success End Condition
 
-A report is available to give to someone who wants the data for all the cities in a region from biggest to smallest.
+A report is available to give to population analyst.
 
 ### Failed End Condition
 

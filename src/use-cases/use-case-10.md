@@ -16,11 +16,11 @@ Primary task.
 
 ### Preconditions
 
-We know the role.  Database contains current employee salary data.
+We know the role.  Database contains capital city data.
 
 ### Success End Condition
 
-A report is available for HR to provide to finance.
+A report is available for HR to provide to population analyst.
 
 ### Failed End Condition
 

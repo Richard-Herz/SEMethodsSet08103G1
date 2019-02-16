@@ -1,4 +1,4 @@
-# USE CASE: 7 Produce a Report on top N populated capital cities in a region where N is provided by the user
+# USE CASE: 7 Produce a Report on the top N populated capital cities in a region where N is provided by the user
 
 ## CHARACTERISTIC INFORMATION
 
@@ -16,11 +16,11 @@ Primary task.
 
 ### Preconditions
 
-We know the role.  Database contains current employee salary data.
+We know the role.  Database contains capital city data.
 
 ### Success End Condition
 
-A report is available for HR to provide to finance.
+A report is available for HR to provide to population analyst.
 
 ### Failed End Condition
 
@@ -36,9 +36,9 @@ A request for finance information is sent to HR.
 
 ## MAIN SUCCESS SCENARIO
 
-1. Population analyst request information on city population in a district from largest to smallest.
-2. HR advisor captures name of the district to get city information for.
-3. HR advisor extracts  information for population of the district.
+1. Population analyst request information on the top N populated capital cities in a region where N is provided by the user.
+2. HR advisor captures name of the region to get capital city information for.
+3. HR advisor extracts  information for population of the capital cities.
 4. HR advisor provides report to population analyst.
 
 ## EXTENSIONS

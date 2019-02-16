@@ -20,7 +20,7 @@ We know the role.  Database contains current employee salary data.
 
 ### Success End Condition
 
-A report is available for HR to provide to finance.
+A report is available for HR to provide to population analyst.
 
 ### Failed End Condition
 
