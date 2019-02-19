@@ -1,0 +1,146 @@
+@startuml
+
+actor HR as "Population Information Worker"
+
+Database Database
+
+rectangle "World System" {
+    usecase UC1 as "Report on the population of people, people living in cities,
+     and people not living in cities in each country"
+    usecase UC2 as "Report on the population of people, people living in cities,
+    and people not living in cities in each region"
+    usecase UC3 as "Report on the population of people, people living in cities,
+     and people not living in cities in each continent"
+    usecase UC4 as "Report on the cities in a district
+     organised by largest population to smallest"
+    usecase UC5 as "Report on the cities in a country
+     organised by largest population to smallest"
+    usecase UC6 as "Report on the cities in a region
+     organised by largest population to smallest"
+    usecase UC7 as "Report on the top N populated capital cities in a region
+     where N is provided by the user"
+    usecase UC8 as "Report on the top N populated capital cities in a continent
+     where N is provided by the user"
+    usecase UC9 as "Report on the top N populated capital cities in the world
+     where N is provided by the user"
+    usecase UC10 as "Report on the capital cities in a region
+     organised by largest to smallest"
+    usecase UC11 as "Report on the capital cities in a continent
+     organised by largest population to smallest"
+    usecase UC12 as "Report on the capital cities in the world
+     organised by largest population to smallest"
+    usecase UC13 as "Report on the top N populated cities in a district
+     where N is provided by the usert"
+    usecase UC14 as "Report on the top N populated cities in a country
+     where N is provided by the user"
+    usecase UC15 as "Report on the top N populated cities in a region
+     where N is provided by the user"
+    usecase UC16 as "Report on the top N populated cities in a continent
+     where N is provided by the user"
+    usecase UC17 as "Report on the top N populated cities in the world
+     where N is provided by the user"
+    usecase UC18 as "Report on the cities in a region
+     organised by largest population to smallest"
+    usecase UC19 as "Report on the cities in a continent
+     organised by largest population to smallest"
+    usecase UC20 as "Report on the cities in the world
+     organised by largest population to smallest"
+    usecase UC21 as "Report on the top N populated countries in a region
+     where N is provided by the user"
+    usecase UC22 as "Report on the countries in a region
+     organised by largest population to smallest"
+    usecase UC23 as "Report on the top N populated countries in the world
+     where N is provided by the user"
+    usecase UC24 as "Report on the countries in a continent
+     organised by largest population to smallest"
+    usecase UC25 as "Report on the countries in the world
+     organised by largest population to smallest"
+    usecase UC26 as "Report on the number of people
+     who speak the following languages
+    from greatest number to smallest,
+    including the percentage of the world population"
+
+
+
+    usecase UCa as "Print Reports"
+
+    HR - UC1
+    HR - UC2
+    HR - UC3
+    HR - UC4
+    HR - UC5
+    HR - UC6
+    HR - UC7
+    HR - UC8
+    HR - UC9
+    HR - UC10
+    HR - UC11
+    HR - UC12
+    HR - UC13
+    HR - UC14
+    HR - UC15
+    HR - UC16
+    HR - UC17
+    HR - UC18
+    HR - UC19
+    HR - UC20
+    HR - UC21
+    HR - UC22
+    HR - UC23
+    HR - UC24
+    HR - UC25
+    HR - UC26
+    UC1 ..> UCa : include
+    UC2 ..> UCa : include
+    UC3 ..> UCa : include
+    UC4 ..> UCa : include
+    UC5 ..> UCa : include
+    UC6 ..> UCa : include
+    UC7 ..> UCa : include
+    UC8 ..> UCa : include
+    UC9 ..> UCa : include
+    UC10 ..> UCa : include
+    UC11 ..> UCa : include
+    UC12 ..> UCa : include
+    UC13 ..> UCa : include
+    UC14 ..> UCa : include
+    UC15 ..> UCa : include
+    UC16 ..> UCa : include
+    UC17 ..> UCa : include
+    UC18 ..> UCa : include
+    UC19 ..> UCa : include
+    UC20 ..> UCa : include
+    UC21 ..> UCa : include
+    UC22 ..> UCa : include
+    UC23 ..> UCa : include
+    UC24 ..> UCa : include
+    UC25 ..> UCa : include
+    UC26 ..> UCa : include
+    UC1 - Database
+    UC2 - Database
+    UC3 - Database
+    UC4 - Database
+    UC5 - Database
+    UC6 - Database
+    UC7 - Database
+    UC8 - Database
+    UC9 - Database
+    UC10 - Database
+    UC11 - Database
+    UC12 - Database
+    UC13 - Database
+    UC14 - Database
+    UC15 - Database
+    UC16 - Database
+    UC17 - Database
+    UC18 - Database
+    UC19 - Database
+    UC20 - Database
+    UC21 - Database
+    UC22 - Database
+    UC23 - Database
+    UC24 - Database
+    UC25 - Database
+    UC26 - Database
+}
+@enduml
