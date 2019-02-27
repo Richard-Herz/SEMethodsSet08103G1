@@ -11,9 +11,9 @@ public class MainWin
 
         connection.connect();
 
-        Country country = new Country();
 
-        country = country.getName("China");
+    //test statement to see if print method works
+        Country country = connection.getPop(103000);
 
         connection.displayCountry(country);
 

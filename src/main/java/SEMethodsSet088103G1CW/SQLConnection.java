@@ -76,4 +76,39 @@ public class SQLConnection {
             System.out.println(country.Code + " " + country.Capital + " " + country.Population + "\n");
         }
     }
+
+    //test method to see if data is loaded in server
+    public Country getPop(int population)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Capital, country.Population "
+                            + "FROM country "
+                            + "WHERE country.Population = '" + population + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country country = new Country();
+                country.Code = rset.getString("Code");
+                country.Capital = rset.getInt("Capital");
+                country.Population = rset.getInt("Population");
+                return country;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+    }
 }
