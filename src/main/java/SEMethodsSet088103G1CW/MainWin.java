@@ -10,6 +10,8 @@ public class MainWin
         SQLConnection connection = new SQLConnection();
 
         connection.connect();
+
+
         /*
         //System.out.println("Boo yah!");
 
@@ -67,4 +69,6 @@ public class MainWin
         }
         */
     }
+
+
 }
