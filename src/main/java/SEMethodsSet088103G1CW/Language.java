@@ -7,5 +7,5 @@ public class Language {
     public String isOfficial;
 
     public float percentage;
-    
+
 }

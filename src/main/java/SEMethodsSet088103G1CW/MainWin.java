@@ -11,6 +11,13 @@ public class MainWin
 
         connection.connect();
 
+        Country country = new Country();
+
+        country = country.getName("China");
+
+        connection.displayCountry(country);
+
+
 
         /*
         //System.out.println("Boo yah!");

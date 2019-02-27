@@ -69,4 +69,11 @@ public class SQLConnection {
             }
         }
     }
+
+    public void displayCountry(Country country){
+        if(country != null)
+        {
+            System.out.println(country.Code + " " + country.Capital + " " + country.Population + "\n");
+        }
+    }
 }
