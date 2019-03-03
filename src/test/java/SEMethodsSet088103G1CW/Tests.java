@@ -23,4 +23,18 @@ public class Tests
     {
         //MainWin.printSalaries(null);
     }
+
+
+    @Test
+    void printCityNull()
+    {
+        //MainWin.printSalaries(null);
+    }
+
+
+    @Test
+    void printLanguageNull()
+    {
+        //MainWin.printSalaries(null);
+    }
 }

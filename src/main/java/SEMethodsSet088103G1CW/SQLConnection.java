@@ -77,7 +77,9 @@ public class SQLConnection {
         }
     }
 
-    //test method to see if data is loaded in server
+    //Test methods for unit testing
+
+    //test method to see if population is loaded in server
     public Country getPop(int population)
     {
         try
@@ -111,6 +113,77 @@ public class SQLConnection {
             return null;
         }
     }
+
+    //test method to see if population is loaded in server
+    public City getName(String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.CountryCode, country.Name, country.Population "
+                            + "FROM city "
+                            + "WHERE city.Name = '" + name + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City city = new City();
+                city.CountryCode = rset.getString("CountryCode");
+                city.Name = rset.getString("Name");
+                city.Population = rset.getInt("Population");
+                return city;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    //test method to see if population is loaded in server
+    public Language getSpeakers(String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT SUM(countryLanguage.percentage), countryLanguage.Language "
+                            + "FROM countryLanguage "
+                            + "WHERE countryLanguage.Language = '" + name + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Language language = new Language();
+                language.percentage = rset.getFloat("Percentage");
+                language.language = rset.getString("Language");
+                return language;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Language details");
+            return null;
+        }
+    }
+
+    //
 
     //All the Country Reports
 
