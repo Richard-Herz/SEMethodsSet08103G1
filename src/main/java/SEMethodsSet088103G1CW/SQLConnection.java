@@ -150,7 +150,7 @@ public class SQLConnection {
     }
 
     //test method to see if population is loaded in server
-    public Language getSpeakers(String name)
+    public Language getSpeakers(String name, String code)
     {
         try
         {
@@ -160,7 +160,8 @@ public class SQLConnection {
             String strSelect =
                     "SELECT SUM(countryLanguage.percentage), countryLanguage.Language "
                             + "FROM countryLanguage "
-                            + "WHERE countryLanguage.Language = '" + name + "'";
+                            + "WHERE countryLanguage.Language = '" + name + "'"
+                            + "AND countryLanguage.CountreyCode = '" + code + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.

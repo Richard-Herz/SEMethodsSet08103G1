@@ -21,20 +21,20 @@ public class Tests
     @Test
     void printPopulationNull()
     {
-        //MainWin.printSalaries(null);
+        //getPop();
     }
 
 
     @Test
     void printCityNull()
     {
-        //MainWin.printSalaries(null);
+        //getName();
     }
 
 
     @Test
     void printLanguageNull()
     {
-        //MainWin.printSalaries(null);
+        //getSpeakers();
     }
 }
