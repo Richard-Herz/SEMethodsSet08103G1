@@ -7,14 +7,14 @@ public class MainWin
     {
         SQLConnection connection = new SQLConnection();
 
-        connection.connect();
+        connection.connect("localhost:33060");
 
 
     //test statement to see if print method works
-        Country country = connection.getPopulation(103000);
+        //Country country = connection.getPopulation(103000);
 
 
-        connection.displayCountry(country);
+        //connection.displayCountry(country);
 
 
 
