@@ -75,12 +75,16 @@ public class SQLConnection {
         {
             System.out.println(country.Code + " " + country.Capital + " " + country.Population + "\n");
         }
+        else
+        {
+            System.out.println("Country is empty");
+        }
     }
 
     //Test methods for unit testing
 
     //test method to see if population is loaded in server
-    public Country getPop(int population)
+    public Country getPopulation(int population)
     {
         try
         {
@@ -123,7 +127,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.CountryCode, country.Name, country.Population "
+                    "SELECT city.CountryCode, city.Name, city.Population "
                             + "FROM city "
                             + "WHERE city.Name = '" + name + "'";
             // Execute SQL statement
@@ -149,8 +153,19 @@ public class SQLConnection {
         }
     }
 
+    public void displayCity(City city){
+        if(city != null)
+        {
+            System.out.println(city.Name + " " + city.Population + "\n");
+        }
+        else
+        {
+            System.out.println("City is empty");
+        }
+    }
+
     //test method to see if population is loaded in server
-    public Language getSpeakers(String name, String code)
+    public Language getSpeakers(String name)
     {
         try
         {
@@ -160,8 +175,7 @@ public class SQLConnection {
             String strSelect =
                     "SELECT SUM(countryLanguage.percentage), countryLanguage.Language "
                             + "FROM countryLanguage "
-                            + "WHERE countryLanguage.Language = '" + name + "'"
-                            + "AND countryLanguage.CountreyCode = '" + code + "'";
+                            + "WHERE countryLanguage.Language = '" + name + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -184,6 +198,16 @@ public class SQLConnection {
         }
     }
 
+    public void displayLanguage(Language langauage){
+        if(langauage != null)
+        {
+            System.out.println(langauage.language + "\n");
+        }
+        else
+        {
+            System.out.println("Language is empty");
+        }
+    }
     //
 
     //All the Country Reports

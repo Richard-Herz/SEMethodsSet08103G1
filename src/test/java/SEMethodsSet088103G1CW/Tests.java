@@ -2,11 +2,6 @@ package SEMethodsSet088103G1CW;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class Tests
 {
@@ -21,20 +16,37 @@ public class Tests
     @Test
     void printPopulationNull()
     {
-        //getPop();
+        SQLConnection con = new SQLConnection();
+        Country c = con.getPopulation(1);
+        con.displayCountry(c);
     }
 
 
     @Test
     void printCityNull()
     {
-        //getName();
+        SQLConnection con = new SQLConnection();
+        City c = con.getName("jlkdjbk");
+        con.displayCity(c);
     }
 
 
     @Test
     void printLanguageNull()
     {
-        //getSpeakers();
+        SQLConnection con = new SQLConnection();
+        Language l = con.getSpeakers("jlkdjbk");
+        con.displayLanguage(l);
+    }
+
+    @Test
+    void printCountry() {
+        SQLConnection con = new SQLConnection();
+        Country c = new Country();
+        c.Code = "GB";
+        c.Name = "Great Britain";
+        c.Capital = 1;
+        c.Population = 10;
+        con.displayCountry(c);
     }
 }

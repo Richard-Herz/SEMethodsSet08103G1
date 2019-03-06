@@ -1,7 +1,5 @@
 package SEMethodsSet088103G1CW;
 
-import java.sql.*;
-
 public class MainWin
 {
 
@@ -13,7 +11,8 @@ public class MainWin
 
 
     //test statement to see if print method works
-        Country country = connection.getPop(103000);
+        Country country = connection.getPopulation(103000);
+
 
         connection.displayCountry(country);
 
