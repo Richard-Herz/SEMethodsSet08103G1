@@ -5,48 +5,44 @@ import org.junit.jupiter.api.Test;
 
 public class Tests
 {
-    static MainWin app;
+    static SQLConnection connection;
 
     @BeforeAll
     static void init()
     {
-        app = new MainWin();
+        connection = new SQLConnection();
     }
 
     @Test
     void printPopulationNull()
     {
-        SQLConnection con = new SQLConnection();
-        Country c = con.getPopulation(1);
-        con.displayCountry(c);
+        Country c = connection.getPopulation(1);
+        connection.displayCountry(c);
     }
 
 
     @Test
     void printCityNull()
     {
-        SQLConnection con = new SQLConnection();
-        City c = con.getName("jlkdjbk");
-        con.displayCity(c);
+        City c = connection.getName("jlkdjbk");
+        connection.displayCity(c);
     }
 
 
     @Test
     void printLanguageNull()
     {
-        SQLConnection con = new SQLConnection();
-        Language l = con.getSpeakers("jlkdjbk");
-        con.displayLanguage(l);
+        Language l = connection.getSpeakers("jlkdjbk");
+        connection.displayLanguage(l);
     }
 
     @Test
     void printCountry() {
-        SQLConnection con = new SQLConnection();
         Country c = new Country();
         c.Code = "GB";
         c.Name = "Great Britain";
         c.Capital = 1;
         c.Population = 10;
-        con.displayCountry(c);
+        connection.displayCountry(c);
     }
 }
