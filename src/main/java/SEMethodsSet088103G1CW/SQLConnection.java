@@ -223,7 +223,7 @@ public class SQLConnection {
             String strSelect =
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
-                            + " ORDER BY country.Population IN DESC";
+                            + " ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -262,7 +262,7 @@ public class SQLConnection {
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
                             + "WHERE country.Continent = '" + continent + "'"
-                            + " ORDER BY country.Population IN DESC";
+                            + " ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -301,7 +301,7 @@ public class SQLConnection {
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
                             + "WHERE country.Region = '" + region + "'"
-                            + " ORDER BY country.Population IN DESC";
+                            + " ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -339,7 +339,7 @@ public class SQLConnection {
             String strSelect =
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
-                            + " ORDER BY country.Population IN DESC"
+                            + " ORDER BY country.Population DESC"
                             + " LIMIT '" + limit + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -379,7 +379,7 @@ public class SQLConnection {
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
                             + " WHERE country.Continent = '" + continent + "'"
-                            + " ORDER BY country.Population IN DESC"
+                            + " ORDER BY country.Population DESC"
                             + " LIMIT '" + limit + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -419,7 +419,7 @@ public class SQLConnection {
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
                             + " WHERE country.Region = '" + region + "'"
-                            + " ORDER BY country.Population IN DESC"
+                            + " ORDER BY country.Population DESC"
                             + " LIMIT '" + limit + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -462,7 +462,7 @@ public class SQLConnection {
             String strSelect =
                     "SELECT city.Name, city.Country, country.District, country.Population "
                             + "FROM city "
-                            + " ORDER BY city.Population IN DESC";
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -499,7 +499,7 @@ public class SQLConnection {
                     "SELECT city.Name, city.CountryCode, country.District, country.Population "
                             + "FROM city "
                             + " WHERE city.CountryCode = '" + code + "'"
-                            + " ORDER BY city.Population IN DESC";
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -536,7 +536,7 @@ public class SQLConnection {
                     "SELECT city.Name, city.CountryCode, country.District, country.Population "
                             + "FROM city "
                             + " WHERE city.District = '" + district + "'"
-                            + " ORDER BY city.Population IN DESC";
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -572,7 +572,7 @@ public class SQLConnection {
             String strSelect =
                     "SELECT city.Name, city.CountryCode, country.District, country.Population "
                             + "FROM city "
-                            + " ORDER BY city.Population IN DESC"
+                            + " ORDER BY city.Population DESC"
                             + " LIMIT '" + limit + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -610,7 +610,7 @@ public class SQLConnection {
                     "SELECT city.Name, city.CountryCode, country.District, country.Population "
                             + "FROM city "
                             + " WHERE city.CountryCode = '" + code + "'"
-                            + " ORDER BY city.Population IN DESC"
+                            + " ORDER BY city.Population DESC"
                             + " LIMIT '" + limit + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -648,7 +648,7 @@ public class SQLConnection {
                     "SELECT city.Name, city.CountryCode, country.District, country.Population "
                             + "FROM city "
                             + " WHERE city.District = '" + district + "'"
-                            + " ORDER BY city.Population IN DESC"
+                            + " ORDER BY city.Population DESC"
                             + " LIMIT '" + limit + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);

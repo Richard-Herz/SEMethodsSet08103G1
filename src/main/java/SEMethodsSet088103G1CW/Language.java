@@ -4,7 +4,7 @@ public class Language {
 
     public String language;
 
-    public String isOfficial;
+    public boolean isOfficial;
 
     public float percentage;
 
