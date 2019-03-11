@@ -16,13 +16,12 @@ public class IntegrationTest
     static void init()
     {
         SQLConnection con = new SQLConnection();
-        con.connect("db");
+        con.connect("localhost:33060");
     }
 
     @Test
     void testGetCountry()
     {
-
         SQLConnection con = new SQLConnection();
         Country c = con.getPopulation(103000);
         con.displayCountry(c);
