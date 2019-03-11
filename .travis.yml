@@ -71,12 +71,22 @@ jobs:
     script:
     - echo "Deploying to GitHub releases"
     - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: SEMethods088103G1CW.jar
+  skip_cleanup: true
+  on:
+    tags: true
 
 stages:
 - unit tests
 - integration tests
+- name: GitHub Release
+  if: branch = develop
 - name: deploy
   if: branch = develop
+
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
