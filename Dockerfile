@@ -1,4 +1,4 @@
 FROM openjdk:latest
-COPY ./target/SEMethodsSet088103G1CW-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp
+COPY ./target/SEMethodsSet088103G1CW.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "SEMethodsSet088103G1CW-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "-jar", "SEMethodsSet088103G1CW.jar", "db:3306"]

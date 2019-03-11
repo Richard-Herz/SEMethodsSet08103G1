@@ -1,17 +1,56 @@
+#language: java
+#
+#sudo: false
+#
+#addons:
+#  hosts:
+#    -db
+#
+#services:
+#- docker
+#
+#install:
+#- docker build -t database db/.
+#- docker run --rm -d -e MYSQL_ROOT_PASSWORD=password -p 33060:3306 database
+#- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+#
+#before_script:
+#- mvn clean
+#
+#jobs:
+#  include:
+#  - stage: unit tests
+#    install: skip
+#    jdk: oraclejdk11
+#    script: mvn test -Dtest=SEMethods088103G1CW.Tests
+#  - stage: integration tests
+#    jdk: oraclejdk11
+#    script: mvn test -Dtest=SEMethods088103G1CW.IntegrationTest
+#  - stage: deploy
+#    install: skip
+#    jdk: oraclejdk11
+#    script: echo "Deploy"
+#
+#stages:
+#- unit tests
+#- integration tests
+#- name: deploy
+#  if: branch = develop
+
 language: java
 
 sudo: false
 
 addons:
   hosts:
-    -db
+  - db
 
 services:
 - docker
 
 install:
-- docker build -t database db/.
-- docker run --rm -d -e MYSQL_ROOT_PASSWORD=password -p 33060:3306 database
+- docker build -t database src/db/.
+- docker run --rm -d -e MYSQL_ROOT_PASSWORD=password  -p 33060:3306 database
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 before_script:
@@ -25,14 +64,26 @@ jobs:
     script: mvn test -Dtest=SEMethods088103G1CW.Tests
   - stage: integration tests
     jdk: oraclejdk11
-    script: mvn test -Dtest=SEMethods088103G1CW.IntegrationTest
-  - stage: deploy
+    script: mvn test -Dtest=com.SEMethods088103G1CW.IntegrationTest
+  - stage: GitHub Release
     install: skip
     jdk: oraclejdk11
-    script: echo "Deploy"
+    script:
+    - echo "Deploying to GitHub releases"
+    - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+    deploy:
+      provider: releases
+      api_key: $GITHUB_OAUTH_TOKEN
+      file: SEMethodsSet088103G1.jar
+      skip_cleanup: true
+      on:
+        tags: true
 
 stages:
 - unit tests
 - integration tests
 - name: deploy
-  if: branch = develop
+  if: branch = master
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
