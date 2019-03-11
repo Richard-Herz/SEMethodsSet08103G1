@@ -18,7 +18,7 @@ public class IntegrationTest
         SQLConnection connection = new SQLConnection();
         connection.connect("localhost:33060");
     }
-
+    /*
     @Test
     void testGetCountry()
     {
@@ -62,4 +62,5 @@ public class IntegrationTest
         c.Population = 10;
         connection.displayCountry(c);
     }
+    */
 }
