@@ -9,6 +9,8 @@ public class MainWin
 
         connection.connect("localhost:33060");
 
+        connection.disconnect();
+
 
     //test statement to see if print method works
         //Country country = connection.getPopulation(103000);
