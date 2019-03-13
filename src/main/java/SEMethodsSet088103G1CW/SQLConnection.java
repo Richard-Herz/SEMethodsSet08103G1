@@ -259,7 +259,7 @@ public class SQLConnection {
             return null;
         }
     }
-
+/*
     //country Report 2
     public Country getCountryReport2(String continent)
     {
@@ -684,4 +684,5 @@ public class SQLConnection {
         }
     }
     // End of City Reports
+    */
 }
