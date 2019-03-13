@@ -1,6 +1,9 @@
 package SEMethodsSet088103G1CW;
 
+import com.mysql.cj.jdbc.exceptions.NotUpdatable;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class SQLConnection {
 
@@ -33,7 +36,7 @@ public class SQLConnection {
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(300);
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "password");
                 System.out.println("Successfully connected");
@@ -70,17 +73,18 @@ public class SQLConnection {
         }
     }
 
-    public void displayCountry(Country country){
-        if(country != null)
-        {
-            System.out.println(country.Code + " " + country.Capital + " " + country.Population + "\n");
-        }
-        else
-        {
-            System.out.println("Country is empty");
+    public void displayCountry(ArrayList<Country> arr) {
+        for (Country country : arr) {
+            if (country != null) {
+                System.out.println(country.Code + " " + country.Capital + " " + country.Population + "\n");
+                if (country.Code == null || country.Capital == 0 || country.Population == 0) {
+                    System.out.println("Country is empty");
+                }
+            } else {
+                System.out.println("Country is empty");
+            }
         }
     }
-
     //Test methods for unit testing
 
     //test method to see if population is loaded in server
@@ -153,15 +157,20 @@ public class SQLConnection {
         }
     }
 
-    public void displayCity(City city){
-        if(city != null)
-        {
-            System.out.println(city.Name + " " + city.Population + "\n");
+    public void displayCity(City city) {
+        try {
+            if (city != null) {
+                System.out.println(city.Name + " " + city.Population + "\n");
+            } else {
+                System.out.println("City is empty");
+            }
         }
-        else
+        catch (Exception e)
         {
-            System.out.println("City is empty");
+            System.out.println(e.getMessage());
+            System.out.println("Exception caught ");
         }
+
     }
 
     //test method to see if population is loaded in server
@@ -213,10 +222,11 @@ public class SQLConnection {
     //All the Country Reports
 
     //Country Report 1
-    public Country getCountryReport1()
+    public ArrayList<Country> getCountryReport1()
     {
         try
         {
+            ArrayList<Country> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -228,7 +238,7 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 Country country = new Country();
                 country.Code = rset.getString("Code");
@@ -237,10 +247,10 @@ public class SQLConnection {
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
                 country.Capital = rset.getInt("Capital");
-                return country;
+                lst.add(country);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {

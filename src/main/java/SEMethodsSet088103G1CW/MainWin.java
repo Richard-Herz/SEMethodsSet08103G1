@@ -1,5 +1,7 @@
 package SEMethodsSet088103G1CW;
 
+import java.util.ArrayList;
+
 public class MainWin
 {
 
@@ -9,6 +11,9 @@ public class MainWin
         SQLConnection connection = new SQLConnection();
 
         connection.connect("localhost:33060");
+
+        ArrayList<Country> arrC = connection.getCountryReport1();
+        connection.displayCountry(arrC);
 
         connection.disconnect();
 

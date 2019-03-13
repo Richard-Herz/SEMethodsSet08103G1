@@ -1,61 +1,49 @@
 package SEMethodsSet088103G1CW;
 
+import com.mysql.cj.log.NullLogger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationTest
 {
-    static SQLConnection connection;
-
+    static SQLConnection con = new SQLConnection();
     @BeforeAll
     static void init()
     {
-        SQLConnection connection = new SQLConnection();
-        connection.connect("localhost:33060");
+
+        con.connect("localhost:33060");
     }
-    /*
+
     @Test
-    void testGetCountry()
+    void testGetCity()
     {
-        System.out.println("This test works");
-        SQLConnection connection = new SQLConnection();
-        Country c = connection.getPopulation(103000);
-        connection.displayCountry(c);
-        //Employee emp = app.getEmployee(255530);
-        //assertEquals(emp.emp_no, 255530);
-       // assertEquals(emp.first_name, "Ronghao");
-       // assertEquals(emp.last_name, "Garigliano");
+        City c = con.getName("London");
+        con.displayCity(c);
     }
-
     @Test
-    void printPopulationNull()
+    void testGetCityEmptyStr()
     {
-        Country c = connection.getPopulation(1);
-        connection.displayCountry(c);
+        City c = con.getName("");
+        con.displayCity(c);
     }
 
-
     @Test
-    void printCityNull()
+    void testGetCityNULL()
     {
-        City c = connection.getName("jlkdjbk");
-        connection.displayCity(c);
+        City c = con.getName(null);
+        con.displayCity(c);
     }
-
-
     @Test
-    void printLanguageNull()
+    void testGetCityWrongStr()
     {
-        Language l = connection.getSpeakers("jlkdjbk");
-        connection.displayLanguage(l);
+        City c = con.getName("RandomString");
+        con.displayCity(c);
     }
-    */
-    @Test
-    void printCountry() {
-        connection.getCityReport1();
-    }
+
 }

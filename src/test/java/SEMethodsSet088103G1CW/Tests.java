@@ -3,6 +3,8 @@ package SEMethodsSet088103G1CW;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 public class Tests
 {
     static SQLConnection connection;
@@ -13,36 +15,43 @@ public class Tests
         connection = new SQLConnection();
     }
 
-    @Test
-    void printPopulationNull()
-    {
-        Country c = connection.getPopulation(1);
-        connection.displayCountry(c);
-    }
-
 
     @Test
-    void printCityNull()
-    {
-        City c = connection.getName("jlkdjbk");
-        connection.displayCity(c);
-    }
-
-
-    @Test
-    void printLanguageNull()
-    {
-        Language l = connection.getSpeakers("jlkdjbk");
-        connection.displayLanguage(l);
+    void printCountriesNull() {
+        ArrayList<Country> arrC = new ArrayList<>();
+        arrC.add(null);
+        connection.displayCountry(arrC);
     }
 
     @Test
-    void printCountry() {
+    void printCountryPropertiesNull() {
         Country c = new Country();
-        c.Code = "GB";
-        c.Name = "Great Britain";
-        c.Capital = 1;
-        c.Population = 10;
-        connection.displayCountry(c);
+        c.Name = null;
+        c.Code = null;
+        c.Capital = 0;
+        ArrayList<Country> arrC = new ArrayList<>();
+        connection.displayCountry(arrC);
     }
+    @Test
+    void printCountryEmptyList() {
+        ArrayList<Country> arrC = new ArrayList<>();
+        connection.displayCountry(arrC);
+    }
+    @Test
+    void printCountryAllProperties() {
+        Country c = new Country();
+        c.Name = "Great Britain";
+        c.Code = "GB";
+        c.Continent = "EUROPE";
+        c.Population = 70000000;
+        c.Region = "Some Region";
+        c.headOfState = "Elizabeth II";
+        c.Capital = 0;
+        ArrayList<Country> arrC = new ArrayList<>();
+        arrC.add(c);
+        connection.displayCountry(arrC);
+    }
+
+
+
 }
