@@ -46,14 +46,17 @@ addons:
   - db
 
 env:
-global:
-- CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  global:
+  # Ensure Google Cloud SDK doesn't prompt for installing.
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 services:
 - docker
 
 before_install:
-- openssl aes-256-cbc -K $encrypted_ccd611b0e41a_key -iv $encrypted_ccd611b0e41a_iv
+# Decrypts the credentials file.
+# The keyname will be different for your project.
+- openssl aes-256-cbc -K $encrypted_b295e594d102_key -iv $encrypted_b295e594d102_iv
   -in client-secret.json.enc -out client-secret.json -d
 
 install:
@@ -92,8 +95,8 @@ jobs:
     api_key: $GITHUB_OAUTH_TOKEN
     file: SEMethods088103G1CW.jar
     skip_cleanup: true
-    on:
-      tags: true
+   # on:
+   #   tags: true
   - stage: Google Cloud Deploy
     install: skip
     jdk: oraclejdk11
@@ -109,7 +112,7 @@ jobs:
     - gcloud auth activate-service-account --key-file client-secret.json
     script:
     # Set the project we will work in.
-    - gcloud config set project semethods-234809
+    - gcloud config set project SEMethodsSet08103G1
     # Set the zone to work in.
     - gcloud config set compute/zone europe-west2-b
     # Assign project ID to a variable to make life easier
@@ -117,13 +120,13 @@ jobs:
     # Authenticate against Google's Docker image manager.
     - gcloud auth configure-docker
     # Build the database image.
-    - docker build -t gcr.io/${PROJECT_ID}/db db/.
+    - docker build -t gcr.io/${semethodsset08103g1}/db src/db/.
     # Push the database image.
-    - docker push gcr.io/${PROJECT_ID}/db
+    - docker push gcr.io/${semethodsset08103g1}/db
     # Create a container cluster.  We only need one node.
     - gcloud container clusters create hr-cluster --num-nodes=1
     # Tell kubernetes to run the built database image, opening port 3306
-    - kubectl run hr --image=gcr.io/${PROJECT_ID}/db --port 3306
+    - kubectl run hr --image=gcr.io/${semethodsset08103g1}/db --port 3306
     # Expose the cluster to the Internet, mapping external port 3306 to internal port 3306.
     - kubectl expose deployment hr --port=3306 --target-port=3306 --type=LoadBalancer
 
@@ -135,13 +138,9 @@ stages:
   if: branch = develop
 - name: deploy
   if: branch = develop
+- name: Google Cloud Deploy
+  if: branch = develop
 
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-
-before_install:
-# Decrypts the credentials file.
-# The keyname will be different for your project.
-- openssl aes-256-cbc -K $encrypted_b295e594d102_key -iv $encrypted_b295e594d102_iv
-  -in client-secret.json.enc -out client-secret.json -d
