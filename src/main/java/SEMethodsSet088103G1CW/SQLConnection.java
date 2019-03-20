@@ -2,21 +2,28 @@ package SEMethodsSet088103G1CW;
 
 import com.mysql.cj.jdbc.exceptions.NotUpdatable;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import java.sql.*;
 import java.util.ArrayList;
 
+@SpringBootApplication
+@RestController
 public class SQLConnection {
 
 
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
      */
-    public void connect(String location)
+    public static void connect(String location)
     {
         try
         {
@@ -57,7 +64,7 @@ public class SQLConnection {
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect()
+    public static void disconnect()
     {
         if (con != null)
         {

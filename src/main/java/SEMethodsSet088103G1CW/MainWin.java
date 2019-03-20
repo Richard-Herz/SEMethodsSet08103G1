@@ -1,5 +1,7 @@
 package SEMethodsSet088103G1CW;
 
+import org.springframework.boot.SpringApplication;
+
 import java.util.ArrayList;
 
 public class MainWin
@@ -7,7 +9,8 @@ public class MainWin
 
     public static void main(String[] args)
     {
-
+        //working connection and disconnect
+        /*
         SQLConnection connection = new SQLConnection();
 
         connection.connect("localhost:33060");
@@ -16,6 +19,19 @@ public class MainWin
         connection.displayCountry(arrC);
 
         connection.disconnect();
+        */
+
+        // Connect to database
+        if (args.length < 1)
+        {
+            SQLConnection.connect("localhost:33060");
+        }
+        else
+        {
+            SQLConnection.connect(args[0]);
+        }
+
+        SpringApplication.run(MainWin.class, args);
 
 
     //test statement to see if print method works
