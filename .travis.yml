@@ -52,6 +52,10 @@ global:
 services:
 - docker
 
+before_install:
+- openssl aes-256-cbc -K $encrypted_ccd611b0e41a_key -iv $encrypted_ccd611b0e41a_iv
+  -in client-secret.json.enc -out client-secret.json -d
+
 install:
 - docker build -t database src/db/.
 - docker run --rm -d -e MYSQL_ROOT_PASSWORD=password  -p 33060:3306 database
