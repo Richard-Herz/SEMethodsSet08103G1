@@ -101,35 +101,52 @@ jobs:
     install: skip
     jdk: oraclejdk11
     before_script:
-    # Check if Google Cloud SDK is installed.
-    - if [ ! -d ${HOME}/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash
-        > /dev/null; fi
-    - source $HOME/google-cloud-sdk/path.bash.inc
-    # Install Kubernetes control to manage containers
-    - gcloud components install kubectl
-    - gcloud version
-    # Login to our Google Cloud Account using credentials file
-    - gcloud auth activate-service-account --key-file client-secret.json
+      # Check if Google Cloud SDK is installed.
+      - if [ ! -d ${HOME}/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash
+          > /dev/null; fi
+      - source $HOME/google-cloud-sdk/path.bash.inc
+      # Install Kubernetes control to manage containers
+      - gcloud components install kubectl
+      - gcloud version
+      # Login to our Google Cloud Account using credentials file
+      - gcloud auth activate-service-account --key-file client-secret.json
     script:
-    # Set the project we will work in.
-    - gcloud config set project SEMethodsSet08103G1
-    # Set the zone to work in.
-    - gcloud config set compute/zone europe-west2-b
-    # Assign project ID to a variable to make life easier
-    - export PROJECT_ID="$(gcloud config get-value project -q)"
-    # Authenticate against Google's Docker image manager.
-    - gcloud auth configure-docker
-    # Build the database image.
-    - docker build -t gcr.io/${semethodsset08103g1}/db src/db/.
-    # Push the database image.
-    - docker push gcr.io/${semethodsset08103g1}/db
-    # Create a container cluster.  We only need one node.
-    - gcloud container clusters create hr-cluster --num-nodes=1
-    # Tell kubernetes to run the built database image, opening port 3306
-    - kubectl run hr --image=gcr.io/${semethodsset08103g1}/db --port 3306
-    # Expose the cluster to the Internet, mapping external port 3306 to internal port 3306.
-    - kubectl expose deployment hr --port=3306 --target-port=3306 --type=LoadBalancer
-
+      # Set the project we will work in.
+      - gcloud config set project SEMethodsSet08103G1
+      # Set the zone to work in.
+      - gcloud config set compute/zone europe-west2-b
+      # Assign project ID to a variable to make life easier
+      - export PROJECT_ID="$(gcloud config get-value project -q)"
+      # Authenticate against Google's Docker image manager.
+      - gcloud auth configure-docker
+      # Build the database image.
+      - docker build -t gcr.io/${semethodsset08103g1}/db src/db/.
+      # Push the database image.
+      - docker push gcr.io/${semethodsset08103g1}/db
+      # Build the application
+      - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+      # Build the application image
+      - docker build -t gcr.io/${semethodsset08103g1}/app .
+      # Push the application image.
+      - docker push gcr.io/${semethodsset08103g1}/app
+      # Build the web image.
+      - docker build -t gcr.io/${semethodsset08103g1}/web web/.
+      # Push the web image.
+      - docker push gcr.io/${semethodsset08103g1}/web
+      # Create a container cluster.  We only need one node.
+      - gcloud container clusters create hr-cluster --num-nodes=1
+      # Tell kubernetes to run the built database image, opening port 3306
+      - kubectl run db --image=gcr.io/${semethodsset08103g1}/db --port 3306
+      # Expose database service to the rest of the cluster with name db.
+      - kubectl expose deployment db --name=db
+      # Tell kubernetes to run the build application image, opening port 8080
+      - kubectl run app --image=gcr.io/${semethodsset08103g1}/app --port 8080
+      # Expose the app service
+      - kubectl expose deployment app --name=app
+      # Tell kubernetes to run the built web image, opening port 80
+      - kubectl run web --image=gcr.io/${semethodsset08103g1}/web --port 80
+      # Expose the web interface, mapping external port 80 to internal port 80
+      - kubectl expose deployment web --port=80 --target-port=80 --type=LoadBalancer
 
 stages:
 - unit tests
