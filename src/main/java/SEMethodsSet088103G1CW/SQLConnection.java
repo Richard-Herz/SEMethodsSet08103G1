@@ -121,9 +121,8 @@ public class SQLConnection {
             }
         }
     }
-    //Test methods for unit testing
 
-    //test method to see if population is loaded in server
+    //Test methods for unit testing
     public Country getPopulation(int population)
     {
         try
@@ -1106,6 +1105,47 @@ public class SQLConnection {
     // End of Population Reports
 
     //Start of Language Reports
+    
+    //Langauge Report
+    public ArrayList<City> getLanguageReport(int limit)
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " LIMIT '" + limit + "'"
+                            + " GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
 
     // End of Language Reports
 }
