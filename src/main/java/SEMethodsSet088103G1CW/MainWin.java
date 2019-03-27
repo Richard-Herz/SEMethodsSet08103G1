@@ -10,9 +10,9 @@ public class MainWin
     public static void main(String[] args)
     {
         //working connection and disconnect
-        /*
-        SQLConnection connection = new SQLConnection();
 
+       // SQLConnection connection = new SQLConnection();
+        /*
         connection.connect("localhost:33060");
 
         ArrayList<Country> arrC = connection.getCountryReport1();
@@ -31,6 +31,8 @@ public class MainWin
             SQLConnection.connect(args[0]);
         }
 
+        //ArrayList<Country> arrC = connection.getCountryReport1();
+        //connection.displayCountry(arrC);
         SpringApplication.run(MainWin.class, args);
 
 

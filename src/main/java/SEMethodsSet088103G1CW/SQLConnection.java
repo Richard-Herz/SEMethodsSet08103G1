@@ -512,7 +512,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, country.District"
+                    "SELECT city.Name, city.CountryCode, city.District"
                             + "FROM city "
                             + " ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -549,7 +549,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, country.District"
+                    "SELECT city.Name, city.CountryCode, city.District"
                             + "FROM city "
                             + " WHERE city.CountryCode = '" + code + "'"
                             + " ORDER BY city.Population DESC";
@@ -587,7 +587,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, country.District, country.Population "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
                             + "FROM city "
                             + " WHERE city.District = '" + district + "'"
                             + " ORDER BY city.Population DESC";
@@ -625,7 +625,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, country.District, country.Population "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
                             + "FROM city "
                             + " ORDER BY city.Population DESC"
                             + " LIMIT '" + limit + "'";
@@ -663,7 +663,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, country.District, country.Population "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
                             + "FROM city "
                             + " WHERE city.CountryCode = '" + code + "'"
                             + " ORDER BY city.Population DESC"
@@ -702,7 +702,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, country.District, country.Population "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
                             + "FROM city "
                             + " WHERE city.District = '" + district + "'"
                             + " ORDER BY city.Population DESC"
@@ -730,11 +730,375 @@ public class SQLConnection {
             return null;
         }
     }
+
+    //City Report 7
+    public ArrayList<City> getCityReport7()
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District"
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " GROUP BY country.Continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    //City Report 8
+    public ArrayList<City> getCityReport8()
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District"
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    //City Report 9
+    public ArrayList<City> getCityReport9(int limit)
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " GROUP BY country.Continent"
+                            + " LIMIT '" + limit + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    //City Report 10
+    public ArrayList<City> getCityReport10(int limit)
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " GROUP BY country.Region"
+                            + " LIMIT '" + limit + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
     // End of City Reports
 
     // Start of Capital city reports
 
 
+    //Capital City Report 2
+    public ArrayList<City> getCapitalCityReport2()
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " GROUP BY country.Continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    //Capital City Report 3
+    public ArrayList<City> getCapitalCityReport3()
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+    //Capital City Report 4
+    public ArrayList<City> getCapitalCityReport4(int limit)
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " LIMIT '" + limit + "'"
+                            + " GROUP BY country.Region" ;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    //Capital City Report 5
+    public ArrayList<City> getCapitalCityReport3(int limit)
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " LIMIT '" + limit + "'"
+                            + " GROUP BY country.Continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    //Capital City Report 6
+    public ArrayList<City> getCapitalCityReport6(int limit)
+    {
+        try
+        {
+            ArrayList<City> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city "
+                            + "LEFT JOIN country "
+                            + " ON country.CountryCode = city.CountryCode "
+                            + " ORDER BY city.Population DESC"
+                            + " LIMIT '" + limit + "'"
+                            + " GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                City city = new City();
+                city.Name = rset.getString("Name");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
     // End of Capital city reports
 
     //Start of Population Reports
