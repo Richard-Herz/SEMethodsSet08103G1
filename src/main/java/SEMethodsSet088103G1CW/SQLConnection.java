@@ -80,15 +80,44 @@ public class SQLConnection {
         }
     }
 
+    //Method for displaying country report information
     public void displayCountry(ArrayList<Country> arr) {
         for (Country country : arr) {
             if (country != null) {
-                System.out.println(country.Code + " " + country.Capital + " " + country.Population + "\n");
-                if (country.Code == null || country.Capital == 0 || country.Population == 0) {
+                System.out.println(country.Code + " " + country.Name + " " + country.Continent + " " + country.Region + " " + country.Population +  + country.Capital + " " + "\n");
+                if (country.Code == null && country.Capital == 0 && country.Population == 0 && country.Name == null && country.Continent == null && country.Region == null) {
                     System.out.println("Country is empty");
                 }
             } else {
                 System.out.println("Country is empty");
+            }
+        }
+    }
+
+    //Method for displaying city report information
+    public void displayCity(ArrayList<City> arr) {
+        for (City city : arr) {
+            if (city != null) {
+                System.out.println(city.CountryCode + " " + city.Name + " " + city.District + " " + city.Population + " " + "\n");
+                if (city.CountryCode == null && city.Name == null && city.Population == 0 && city.District == null) {
+                    System.out.println("City is empty");
+                }
+            } else {
+                System.out.println("City is empty");
+            }
+        }
+    }
+
+    //Method for displaying Capital city report information
+    public void displayCapitalCity(ArrayList<City> arr) {
+        for (City city : arr) {
+            if (city != null) {
+                System.out.println(city.CountryCode + " " + city.Name +  " " + city.Population + " " + "\n");
+                if (city.CountryCode == null && city.Name == null && city.Population == 0) {
+                    System.out.println("Capital city is empty");
+                }
+            } else {
+                System.out.println("Capital city is empty");
             }
         }
     }
@@ -266,12 +295,13 @@ public class SQLConnection {
             return null;
         }
     }
-/*
+
     //country Report 2
-    public Country getCountryReport2(String continent)
+    public ArrayList<Country> getCountryReport2(String continent)
     {
         try
         {
+            ArrayList<Country> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -284,7 +314,7 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 Country country = new Country();
                 country.Code = rset.getString("Code");
@@ -293,10 +323,10 @@ public class SQLConnection {
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
                 country.Capital = rset.getInt("Capital");
-                return country;
+                lst.add(country);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -307,10 +337,11 @@ public class SQLConnection {
     }
 
     //country Report 3
-    public Country getCountryReport3(String region)
+    public ArrayList<Country> getCountryReport3(String region)
     {
         try
         {
+            ArrayList<Country> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -323,7 +354,7 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 Country country = new Country();
                 country.Code = rset.getString("Code");
@@ -332,10 +363,10 @@ public class SQLConnection {
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
                 country.Capital = rset.getInt("Capital");
-                return country;
+                lst.add(country);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -346,10 +377,11 @@ public class SQLConnection {
     }
 
     //Country Report 4
-    public Country getCountryReport4(int limit)
+    public ArrayList<Country> getCountryReport4(int limit)
     {
         try
         {
+            ArrayList<Country> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -362,7 +394,7 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 Country country = new Country();
                 country.Code = rset.getString("Code");
@@ -371,10 +403,10 @@ public class SQLConnection {
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
                 country.Capital = rset.getInt("Capital");
-                return country;
+                lst.add(country);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -385,10 +417,11 @@ public class SQLConnection {
     }
 
     //Country Report 5
-    public Country getCountryReport5(String continent, int limit)
+    public ArrayList<Country> getCountryReport5(String continent, int limit)
     {
         try
         {
+            ArrayList<Country> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -402,7 +435,7 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 Country country = new Country();
                 country.Code = rset.getString("Code");
@@ -411,10 +444,10 @@ public class SQLConnection {
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
                 country.Capital = rset.getInt("Capital");
-                return country;
+                lst.add(country);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -425,10 +458,11 @@ public class SQLConnection {
     }
 
     //Country Report 6
-    public Country getCountryReport6(String region, int limit)
+    public ArrayList<Country> getCountryReport6(String region, int limit)
     {
         try
         {
+            ArrayList<Country> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -442,7 +476,7 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 Country country = new Country();
                 country.Code = rset.getString("Code");
@@ -451,10 +485,10 @@ public class SQLConnection {
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
                 country.Capital = rset.getInt("Capital");
-                return country;
+                lst.add(country);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -469,10 +503,11 @@ public class SQLConnection {
     //All the City Reports
 
     //City Report 1
-    public City getCityReport1()
+    public ArrayList<City> getCityReport1()
     {
         try
         {
+            ArrayList<City> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -484,17 +519,17 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 City city = new City();
                 city.Name = rset.getString("Name");
                 city.CountryCode = rset.getString("CountryCode");
                 city.District = rset.getString("District");
                 city.Population = rset.getInt("Population");
-                return city;
+                lst.add(city);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -505,10 +540,11 @@ public class SQLConnection {
     }
 
     //City Report 2
-    public City getCityReport2(String code)
+    public ArrayList<City> getCityReport2(String code)
     {
         try
         {
+            ArrayList<City> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -521,17 +557,17 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 City city = new City();
                 city.Name = rset.getString("Name");
                 city.CountryCode = rset.getString("CountryCode");
                 city.District = rset.getString("District");
                 city.Population = rset.getInt("Population");
-                return city;
+                lst.add(city);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -542,10 +578,11 @@ public class SQLConnection {
     }
 
     //City Report 3
-    public City getCityReport3(String district)
+    public ArrayList<City> getCityReport3(String district)
     {
         try
         {
+            ArrayList<City> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -558,17 +595,17 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 City city = new City();
                 city.Name = rset.getString("Name");
                 city.CountryCode = rset.getString("CountryCode");
                 city.District = rset.getString("District");
                 city.Population = rset.getInt("Population");
-                return city;
+                lst.add(city);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -579,10 +616,11 @@ public class SQLConnection {
     }
 
     //City Report 4
-    public City getCityReport4(int limit)
+    public ArrayList<City> getCityReport4(int limit)
     {
         try
         {
+            ArrayList<City> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -595,17 +633,17 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 City city = new City();
                 city.Name = rset.getString("Name");
                 city.CountryCode = rset.getString("CountryCode");
                 city.District = rset.getString("District");
                 city.Population = rset.getInt("Population");
-                return city;
+                lst.add(city);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -616,10 +654,11 @@ public class SQLConnection {
     }
 
     //City Report 5
-    public City getCityReport5(String code ,int limit)
+    public ArrayList<City> getCityReport5(String code ,int limit)
     {
         try
         {
+            ArrayList<City> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -633,17 +672,17 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 City city = new City();
                 city.Name = rset.getString("Name");
                 city.CountryCode = rset.getString("CountryCode");
                 city.District = rset.getString("District");
                 city.Population = rset.getInt("Population");
-                return city;
+                lst.add(city);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -654,10 +693,11 @@ public class SQLConnection {
     }
 
     //City Report 6
-    public City getCityReport6(String district,int limit)
+    public ArrayList<City> getCityReport6(String district,int limit)
     {
         try
         {
+            ArrayList<City> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -671,17 +711,17 @@ public class SQLConnection {
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            while (rset.next())
             {
                 City city = new City();
                 city.Name = rset.getString("Name");
                 city.CountryCode = rset.getString("CountryCode");
                 city.District = rset.getString("District");
                 city.Population = rset.getInt("Population");
-                return city;
+                lst.add(city);
             }
-            else
-                return null;
+
+            return lst;
         }
         catch (Exception e)
         {
@@ -691,5 +731,4 @@ public class SQLConnection {
         }
     }
     // End of City Reports
-    */
 }
