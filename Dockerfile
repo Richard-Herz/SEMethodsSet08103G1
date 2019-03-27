@@ -1,4 +1,4 @@
 FROM openjdk:latest
-COPY ./target/classes/com /tmp/com
+COPY ./target/SEMethodsSet088103G1CW.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "SEMethods088103G1CW.App"]
+ENTRYPOINT ["java", "-jar", "SEMethodsSet088103G1CW.jar", "db:33060"]

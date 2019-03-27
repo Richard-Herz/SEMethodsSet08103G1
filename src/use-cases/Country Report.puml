@@ -1,0 +1,17 @@
+@startuml
+
+actor HR as "Population Information Worker"
+
+rectangle Database
+
+rectangle "World System" {
+    usecase UC4 as "Country Report"
+
+    usecase UCa as "Print Country Report"
+
+    HR - UC4
+    UC4 ..> UCa : include
+    UC4 - Database
+}
+
+@enduml

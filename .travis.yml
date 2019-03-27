@@ -1,10 +1,162 @@
-sudo: required
+#language: java
+#
+#sudo: false
+#
+#addons:
+#  hosts:
+#    -db
+#
+#services:
+#- docker
+#
+#install:
+#- docker build -t database db/.
+#- docker run --rm -d -e MYSQL_ROOT_PASSWORD=password -p 33060:3306 database
+#- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+#
+#before_script:
+#- mvn clean
+#
+#jobs:
+#  include:
+#  - stage: unit tests
+#    install: skip
+#    jdk: oraclejdk11
+#    script: mvn test -Dtest=SEMethods088103G1CW.Tests
+#  - stage: integration tests
+#    jdk: oraclejdk11
+#    script: mvn test -Dtest=SEMethods088103G1CW.IntegrationTest
+#  - stage: deploy
+#    install: skip
+#    jdk: oraclejdk11
+#    script: echo "Deploy"
+#
+#stages:
+#- unit tests
+#- integration tests
+#- name: deploy
+#  if: branch = develop
 
 language: java
+
+sudo: false
+
+addons:
+  hosts:
+  - db
+
+env:
+  global:
+  # Ensure Google Cloud SDK doesn't prompt for installing.
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 services:
 - docker
 
+before_install:
+# Decrypts the credentials file.
+- openssl aes-256-cbc -K $encrypted_ccd611b0e41a_key -iv $encrypted_ccd611b0e41a_iv
+-in client-secret.json.enc -out client-secret.json -d
+
+install:
+- docker build -t database src/db/.
+- docker run --rm -d -e MYSQL_ROOT_PASSWORD=password  -p 33060:3306 database
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+before_script:
+- mvn clean
+
+jobs:
+  include:
+  - stage: unit tests
+    install: skip
+    jdk: oraclejdk11
+    script: mvn test -Dtest=SEMethodsSet088103G1CW.Tests
+  - stage: integration tests
+    jdk: oraclejdk11
+    script: mvn test -Dtest=SEMethodsSet088103G1CW.IntegrationTest
+  - stage: GitHub Release
+    install: skip
+    jdk: oraclejdk11
+    script:
+    - echo "Deploying to GitHub releases"
+    - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+  before_deploy:
+    # Set up git user name and tag this commit
+    - git config --local user.name "Calder-MacLean"
+    - git config --local user.email "caldmac08@icloud.com"
+    # Create temporary tag from date and Git log.
+    - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
+    # Set tag
+    - git tag $TRAVIS_TAG
+  deploy:
+    provider: releases
+    api_key: $GITHUB_OAUTH_TOKEN
+    file: SEMethods088103G1CW.jar
+    skip_cleanup: true
+   # on:
+   #   tags: true
+  - stage: Google Cloud Deploy
+    install: skip
+    jdk: oraclejdk11
+    before_script:
+      # Check if Google Cloud SDK is installed.
+      - if [ ! -d ${HOME}/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash
+          > /dev/null; fi
+      - source $HOME/google-cloud-sdk/path.bash.inc
+      # Install Kubernetes control to manage containers
+      - gcloud components install kubectl
+      - gcloud version
+      # Login to our Google Cloud Account using credentials file
+      - gcloud auth activate-service-account --key-file client-secret.json
+    script:
+      # Set the project we will work in.
+      - gcloud config set project SEMethodsSet08103G1
+      # Set the zone to work in.
+      - gcloud config set compute/zone europe-west2-b
+      # Assign project ID to a variable to make life easier
+      - export PROJECT_ID="$(gcloud config get-value project -q)"
+      # Authenticate against Google's Docker image manager.
+      - gcloud auth configure-docker
+      # Build the database image.
+      - docker build -t gcr.io/${semethodsset08103g1}/db src/db/.
+      # Push the database image.
+      - docker push gcr.io/${semethodsset08103g1}/db
+      # Build the application
+      - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+      # Build the application image
+      - docker build -t gcr.io/${semethodsset08103g1}/app .
+      # Push the application image.
+      - docker push gcr.io/${semethodsset08103g1}/app
+      # Build the web image.
+      - docker build -t gcr.io/${semethodsset08103g1}/web web/.
+      # Push the web image.
+      - docker push gcr.io/${semethodsset08103g1}/web
+      # Create a container cluster.  We only need one node.
+      - gcloud container clusters create hr-cluster --num-nodes=1
+      # Tell kubernetes to run the built database image, opening port 3306
+      - kubectl run db --image=gcr.io/${semethodsset08103g1}/db --port 3306
+      # Expose database service to the rest of the cluster with name db.
+      - kubectl expose deployment db --name=db
+      # Tell kubernetes to run the build application image, opening port 8080
+      - kubectl run app --image=gcr.io/${semethodsset08103g1}/app --port 8080
+      # Expose the app service
+      - kubectl expose deployment app --name=app
+      # Tell kubernetes to run the built web image, opening port 80
+      - kubectl run web --image=gcr.io/${semethodsset08103g1}/web --port 80
+      # Expose the web interface, mapping external port 80 to internal port 80
+      - kubectl expose deployment web --port=80 --target-port=80 --type=LoadBalancer
+
+stages:
+- unit tests
+- integration tests
+- name: GitHub Release
+  if: branch = develop
+- name: deploy
+  if: branch = develop
+- name: Google Cloud Deploy
+  if: branch = develop
+
+
 after_success:
-- docker build -t se_methods .
-- docker run se_methods
+- bash <(curl -s https://codecov.io/bash)
