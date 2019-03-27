@@ -512,7 +512,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.Country, country.District, country.Population "
+                    "SELECT city.Name, city.CountryCode, country.District"
                             + "FROM city "
                             + " ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -549,9 +549,8 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, country.District, country.Population"
+                    "SELECT city.Name, city.CountryCode, country.District"
                             + "FROM city "
-                            + "JOIN country ON city WHERE countryCode = country.CountryCode"
                             + " WHERE city.CountryCode = '" + code + "'"
                             + " ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -743,6 +742,6 @@ public class SQLConnection {
     // End of Population Reports
 
     //Start of Language Reports
-    
+
     // End of Language Reports
 }
