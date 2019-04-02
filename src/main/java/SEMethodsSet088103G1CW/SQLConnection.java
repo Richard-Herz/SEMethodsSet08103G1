@@ -80,8 +80,14 @@ public class SQLConnection {
         }
     }
 
-    //Method for displaying country report information
-    public void displayCountry(ArrayList<Country> arr) {
+    /**
+     *
+     * //Get Names of all Countries. In list example
+     * @param arr
+     * @return
+     */
+    @RequestMapping("countryList")    //Method for displaying country report information
+    public void displayCountry(@RequestParam(value = "country")  ArrayList<Country> arr) {
         for (Country country : arr) {
             if (country != null) {
                 System.out.println(country.Code + " " + country.Name + " " + country.Continent + " " + country.Region + " " + country.Population +  + country.Capital + " " + "\n");

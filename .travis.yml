@@ -81,7 +81,21 @@ jobs:
     script:
     - echo "Deploying to GitHub releases"
     - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
-
+  before_deploy:
+    # Set up git user name and tag this commit
+    - git config --local user.name "Richard-Herz"
+    - git config --local user.email "richard_herz@hotmail.com"
+    # Create temporary tag from date and Git log.
+    - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
+    # Set tag
+    - git tag $TRAVIS_TAG
+  deploy:
+    provider: releases
+    api_key: $GITHUB_OAUTH_TOKEN
+    file: SEMethods088103G1CW.jar
+    skip_cleanup: true
+   # on:
+   #   tags: true
   - stage: Google Cloud Deploy
     install: skip
     jdk: oraclejdk11
@@ -132,27 +146,13 @@ jobs:
       - kubectl run web --image=gcr.io/${semethodsset08103g1}/web --port 80
       # Expose the web interface, mapping external port 80 to internal port 80
       - kubectl expose deployment web --port=80 --target-port=80 --type=LoadBalancer
-  before_deploy:
-  # Set up git user name and tag this commit
-  - git config --local user.name "Calder-MacLean"
-  - git config --local user.email "caldmac08@icloud.com"
-  # Create temporary tag from date and Git log.
-  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
-  # Set tag
-  - git tag $TRAVIS_TAG
-  deploy:
-    provider: releases
-    api_key: $GITHUB_OAUTH_TOKEN
-    file: SEMethods088103G1CW.jar
-    skip_cleanup: true
-    # on:
-    #   tags: true
+
 stages:
 - unit tests
 - integration tests
 - name: GitHub Release
   if: branch = master
-- name: deploy
+- name: master
   if: branch = master
 - name: Google Cloud Deploy
   if: branch = master
