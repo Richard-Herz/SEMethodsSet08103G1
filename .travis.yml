@@ -83,8 +83,8 @@ jobs:
     - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
   before_deploy:
     # Set up git user name and tag this commit
-    - git config --local user.name "Calder-MacLean"
-    - git config --local user.email "caldmac08@icloud.com"
+    - git config --local user.name "Richard-Herz"
+    - git config --local user.email "richard_herz@hotmail.com"
     # Create temporary tag from date and Git log.
     - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
     # Set tag
@@ -151,11 +151,11 @@ stages:
 - unit tests
 - integration tests
 - name: GitHub Release
-  if: branch = develop
-- name: deploy
-  if: branch = develop
+  if: branch = master
+- name: master
+  if: branch = master
 - name: Google Cloud Deploy
-  if: branch = develop
+  if: branch = master
 
 
 after_success:
