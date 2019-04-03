@@ -32,7 +32,8 @@ public class MainWin
 
         // Connect to database
 
-
+        //this is the endpoint we need for our program, no idea where to put it
+        //35.242.135.235:3306
         if (args.length < 1)
         {
             connection.connect("localhost:33060");
