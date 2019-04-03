@@ -44,8 +44,8 @@ jobs:
     - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
     before_deploy:
     # Set our Git user name and email.
-    - git config --local user.name "Richard-Herz"
-    - git config --local user.email "richard_herz@hotmail.com"
+    - git config --local user.name "Syudo"
+    - git config --local user.email "natsu.eichiro@gmail.com"
     # Create unique tag for the commit.
     - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
     # Tag the commit.
