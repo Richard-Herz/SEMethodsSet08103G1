@@ -30,14 +30,14 @@ jobs:
     - echo "Deploying to GitHub releases"
     - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
     before_deploy:
-    - git config --local user.name "Syudo"
+    - git config --local user.name "IsmaelSouf"
     - git config --local user.email "natsu.eichiro@gmail.com"
     - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
     - git tag $TRAVIS_TAG
     deploy:
       provider: releases
       api_key: "$GITHUB_OAUTH_TOKEN"
-      file: SEMethods088103G1CW.jar
+      file: "$TRAVIS_BUILD_DIR/target/SEMethods088103G1CW.jar"
       skip_cleanup: true
   - stage: Google Cloud Deploy
     install: skip
