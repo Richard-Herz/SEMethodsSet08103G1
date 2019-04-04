@@ -31,7 +31,7 @@
     var urlParams = new URLSearchParams(window.location.search);
     var title = urlParams.get('title');
 
-    var URL = "http://" + window.location.hostname + "/SQLConnection/countries_title?title=" + title;
+    var URL = "http://" + window.location.hostname + "/app/countries_title?title=" + title;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
