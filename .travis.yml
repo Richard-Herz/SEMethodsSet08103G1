@@ -59,7 +59,7 @@ jobs:
     - gcloud container clusters create world-cluster --num-nodes=1
     - kubectl run world --image=gcr.io/${PROJECT_ID}/src/db --port 3306
     #- kubectl expose deployment world --port=3306 --target-port=3306 --type=LoadBalancer
-    - kubectl expose deployment db --name=db
+    - kubectl expose deployment /src/db --name=db
       # Tell kubernetes to run the build application image, opening port 8080
     - kubectl run app --image=gcr.io/${PROJECT_ID}/app --port 8080
       # Expose the app service
