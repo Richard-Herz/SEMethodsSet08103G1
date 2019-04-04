@@ -100,6 +100,9 @@ public class SQLConnection {
         }
     }
 
+
+
+
     //Method for displaying city report information
     public void displayCity(ArrayList<City> arr) {
         for (City city : arr) {
@@ -113,6 +116,9 @@ public class SQLConnection {
             }
         }
     }
+
+
+
 
     //Method for displaying Capital city report information
     public void displayCapitalCity(ArrayList<City> arr) {
