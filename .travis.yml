@@ -61,7 +61,7 @@ jobs:
    # - kubectl expose deployment world --port=3306 --target-port=3306 --type=LoadBalancer
     - kubectl expose deployment world --name=db
       # Tell kubernetes to run the build application image, opening port 8080
-    - kubectl run app --image=gcr.io/${PROJECT_ID}/MainWin --port 8080
+    - kubectl run app --image=gcr.io/${PROJECT_ID}/app --port 8080
       # Expose the app service
     - kubectl expose deployment app --name=app
       # Tell kubernetes to run the built web image, opening port 80
