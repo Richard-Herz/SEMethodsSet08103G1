@@ -43,8 +43,7 @@ jobs:
     install: skip
     jdk: oraclejdk11
     before_script:
-    - if [ ! -d ${HOME}/google-cloud-sdk ]; then curl https://sdk.cloud.google.com
-      | bash > /dev/null; fi
+    - if [ ! -d ${HOME}/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash > /dev/null; fi
     - source $HOME/google-cloud-sdk/path.bash.inc
     - gcloud components install kubectl
     - gcloud version
@@ -59,7 +58,7 @@ jobs:
     - gcloud container clusters create world-cluster --num-nodes=1
     - kubectl run world --image=gcr.io/${PROJECT_ID}/db --port 3306
    # - kubectl expose deployment world --port=3306 --target-port=3306 --type=LoadBalancer
-    - kubectl expose deployment db --name=db
+    - kubectl expose deployment world --name=world
       # Tell kubernetes to run the build application image, opening port 8080
     - kubectl run app --image=gcr.io/${PROJECT_ID}/app --port 8080
       # Expose the app service
