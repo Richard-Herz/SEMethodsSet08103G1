@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.sql.*;
 import java.util.ArrayList;
+@SpringBootApplication
 
 public class MainWin
 {

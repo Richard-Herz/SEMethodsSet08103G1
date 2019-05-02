@@ -43,7 +43,7 @@ public class SQLConnection {
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(300);
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
@@ -79,63 +79,49 @@ public class SQLConnection {
             }
         }
     }
-
     /**
-     *
-     * //Get Names of all Countries. In list example
-     * @param arr
-     * @return
+     * Gets world populations
+     * @return A list of countries and populations, or null if there is an error.
      */
-    @RequestMapping("countryList")    //Method for displaying country report information
-    public void displayCountry(@RequestParam(value = "country")  ArrayList<Country> arr) {
-        for (Country country : arr) {
-            if (country != null) {
-                System.out.println(country.Code + " " + country.Name + " " + country.Continent + " " + country.Region + " " + country.Population +  + country.Capital + " " + "\n");
-                if (country.Code == null && country.Capital == 0 && country.Population == 0 && country.Name == null && country.Continent == null && country.Region == null) {
-                    System.out.println("Country is empty");
-                }
-            } else {
-                System.out.println("Country is empty");
+    @RequestMapping("countryByPop")
+    public ArrayList<Country> getWorldPopulations()
+    {
+        try{
+            //Create an SQL statement
+            Statement stmt = con.createStatement();
+            //Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Code, country.Name, country.Population, country.Continent, country.Capital "
+                            + "FROM country "
+                            + "ORDER BY country.Population DESC";
+            //Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            //Extract country information
+            ArrayList<Country> countries = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.Code = rset.getString("country.Code");
+                country.Name = rset.getString("country.Name");
+                country.Population = rset.getInt("country.Population");
+                country.Continent = rset.getString("country.Continent");
+                country.Capital = rset.getInt("country.Capital");
+                countries.add(country);
             }
+            return countries;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
         }
     }
 
-
-
-
-    //Method for displaying city report information
-    public void displayCity(ArrayList<City> arr) {
-        for (City city : arr) {
-            if (city != null) {
-                System.out.println(city.CountryCode + " " + city.Name + " " + city.District + " " + city.Population + " " + "\n");
-                if (city.CountryCode == null && city.Name == null && city.Population == 0 && city.District == null) {
-                    System.out.println("City is empty");
-                }
-            } else {
-                System.out.println("City is empty");
-            }
-        }
-    }
-
-
-
-
-    //Method for displaying Capital city report information
-    public void displayCapitalCity(ArrayList<City> arr) {
-        for (City city : arr) {
-            if (city != null) {
-                System.out.println(city.CountryCode + " " + city.Name +  " " + city.Population + " " + "\n");
-                if (city.CountryCode == null && city.Name == null && city.Population == 0) {
-                    System.out.println("Capital city is empty");
-                }
-            } else {
-                System.out.println("Capital city is empty");
-            }
-        }
-    }
 
     //Test methods for unit testing
-    public Country getPopulation(int population)
+    @RequestMapping("/pop")
+    public static Country getPopulation(@RequestParam(value="name", defaultValue="103000") int population)
     {
         try
         {
@@ -170,6 +156,7 @@ public class SQLConnection {
     }
 
     //test method to see if population is loaded in server
+    @RequestMapping("getname")
     public City getName(String name)
     {
         try
@@ -269,7 +256,7 @@ public class SQLConnection {
     //All the Country Reports
 
     //Country Report 1
-    public ArrayList<Country> getCountryReport1()
+/*    public ArrayList<Country> getCountryReport1()
     {
         try
         {
@@ -1158,6 +1145,6 @@ public class SQLConnection {
             return null;
         }
     }
-
+*/
     // End of Language Reports
 }
