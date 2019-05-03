@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.*;
 import java.util.ArrayList;
 
-@SpringBootApplication
 @RestController
 public class SQLConnection {
 
@@ -84,7 +83,7 @@ public class SQLConnection {
      * @return A list of countries and populations, or null if there is an error.
      */
     @RequestMapping("countryByPop")
-    public ArrayList<Country> getWorldPopulations()
+    public ArrayList<Country> countryByPop()
     {
         try{
             //Create an SQL statement
@@ -97,7 +96,7 @@ public class SQLConnection {
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             //Extract country information
-            ArrayList<Country> countries = new ArrayList<Country>();
+            ArrayList<Country> countries = new ArrayList<>();
             while (rset.next())
             {
                 Country country = new Country();
@@ -256,7 +255,8 @@ public class SQLConnection {
     //All the Country Reports
 
     //Country Report 1
-/*    public ArrayList<Country> getCountryReport1()
+    @RequestMapping("/rep1")
+    public ArrayList<Country> getCountryReport1()
     {
         try
         {
@@ -295,7 +295,8 @@ public class SQLConnection {
     }
 
     //country Report 2
-    public ArrayList<Country> getCountryReport2(String continent)
+    @RequestMapping("/rep2")
+    public ArrayList<Country> getCountryReport2(@RequestParam(value="continent") String continent)
     {
         try
         {
@@ -335,7 +336,8 @@ public class SQLConnection {
     }
 
     //country Report 3
-    public ArrayList<Country> getCountryReport3(String region)
+    @RequestMapping("/rep3")
+    public ArrayList<Country> getCountryReport3(@RequestParam(value="region")String region)
     {
         try
         {
@@ -375,7 +377,8 @@ public class SQLConnection {
     }
 
     //Country Report 4
-    public ArrayList<Country> getCountryReport4(int limit)
+    @RequestMapping("rep4")
+    public ArrayList<Country> getCountryReport4(@RequestParam(value="limit") int limit)
     {
         try
         {
@@ -387,7 +390,7 @@ public class SQLConnection {
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
                             + " ORDER BY country.Population DESC"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -415,7 +418,8 @@ public class SQLConnection {
     }
 
     //Country Report 5
-    public ArrayList<Country> getCountryReport5(String continent, int limit)
+    @RequestMapping("rep5")
+    public ArrayList<Country> getCountryReport5(@RequestParam(value="continent")String continent,@RequestParam(value="limit") int limit)
     {
         try
         {
@@ -428,7 +432,7 @@ public class SQLConnection {
                             + "FROM country "
                             + " WHERE country.Continent = '" + continent + "'"
                             + " ORDER BY country.Population DESC"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -456,7 +460,8 @@ public class SQLConnection {
     }
 
     //Country Report 6
-    public ArrayList<Country> getCountryReport6(String region, int limit)
+    @RequestMapping("rep6")
+    public ArrayList<Country> getCountryReport6(@RequestParam(value="region") String region,@RequestParam(value="limit") int limit)
     {
         try
         {
@@ -469,7 +474,7 @@ public class SQLConnection {
                             + "FROM country "
                             + " WHERE country.Region = '" + region + "'"
                             + " ORDER BY country.Population DESC"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -501,6 +506,7 @@ public class SQLConnection {
     //All the City Reports
 
     //City Report 1
+    @RequestMapping("cityRep1")
     public ArrayList<City> getCityReport1()
     {
         try
@@ -511,7 +517,7 @@ public class SQLConnection {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.District"
-                            + "FROM city "
+                            + " FROM city "
                             + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -538,7 +544,8 @@ public class SQLConnection {
     }
 
     //City Report 2
-    public ArrayList<City> getCityReport2(String code)
+    @RequestMapping("cityRep2")
+    public ArrayList<City> getCityReport2(@RequestParam(value = "code") String code)
     {
         try
         {
@@ -548,7 +555,7 @@ public class SQLConnection {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.District"
-                            + "FROM city "
+                            + " FROM city "
                             + " WHERE city.CountryCode = '" + code + "'"
                             + " ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -576,7 +583,8 @@ public class SQLConnection {
     }
 
     //City Report 3
-    public ArrayList<City> getCityReport3(String district)
+    @RequestMapping("cityRep3")
+    public ArrayList<City> getCityReport3(@RequestParam(value= "district") String district)
     {
         try
         {
@@ -585,8 +593,8 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city "
                             + " WHERE city.District = '" + district + "'"
                             + " ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -614,7 +622,8 @@ public class SQLConnection {
     }
 
     //City Report 4
-    public ArrayList<City> getCityReport4(int limit)
+    @RequestMapping("cityRep4")
+    public ArrayList<City> getCityReport4(@RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -623,10 +632,10 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city "
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -652,7 +661,8 @@ public class SQLConnection {
     }
 
     //City Report 5
-    public ArrayList<City> getCityReport5(String code ,int limit)
+    @RequestMapping("cityRep5")
+    public ArrayList<City> getCityReport5(@RequestParam(value = "code") String code ,@RequestParam(value ="limit") int limit)
     {
         try
         {
@@ -661,11 +671,11 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city "
                             + " WHERE city.CountryCode = '" + code + "'"
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -691,7 +701,9 @@ public class SQLConnection {
     }
 
     //City Report 6
-    public ArrayList<City> getCityReport6(String district,int limit)
+    @RequestMapping("cityRep6")
+    public ArrayList<City> getCityReport6(@RequestParam(value = "district") String district,
+                                          @RequestParam(value ="limit") int limit)
     {
         try
         {
@@ -700,11 +712,11 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city "
                             + " WHERE city.District = '" + district + "'"
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -730,6 +742,7 @@ public class SQLConnection {
     }
 
     //City Report 7
+    @RequestMapping("cityRep7")
     public ArrayList<City> getCityReport7()
     {
         try
@@ -740,8 +753,8 @@ public class SQLConnection {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.District"
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                            + " FROM city"
+                            + " LEFT JOIN country "
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
                             + " GROUP BY country.Continent";
@@ -770,6 +783,7 @@ public class SQLConnection {
     }
 
     //City Report 8
+    @RequestMapping("cityRep8")
     public ArrayList<City> getCityReport8()
     {
         try
@@ -780,8 +794,8 @@ public class SQLConnection {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.District"
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                            + " FROM city"
+                            + " LEFT JOIN country "
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
                             + " GROUP BY country.Region";
@@ -810,7 +824,8 @@ public class SQLConnection {
     }
 
     //City Report 9
-    public ArrayList<City> getCityReport9(int limit)
+    @RequestMapping("cityRep9")
+    public ArrayList<City> getCityReport9(@RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -819,13 +834,13 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city"
+                            + " LEFT JOIN country "
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
                             + " GROUP BY country.Continent"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -851,7 +866,8 @@ public class SQLConnection {
     }
 
     //City Report 10
-    public ArrayList<City> getCityReport10(int limit)
+    @RequestMapping("cityRep10")
+    public ArrayList<City> getCityReport10(@RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -860,13 +876,13 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
-                            + " ON country.CountryCode = city.CountryCode "
+                    "SELECT country.Region, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city"
+                            + " LEFT JOIN country"
+                            + " ON country.Code = city.CountryCode "
+                            + " GROUP BY country.Region, city.Name, city.CountryCode, city.District, city.Population"
                             + " ORDER BY city.Population DESC"
-                            + " GROUP BY country.Region"
-                            + " LIMIT '" + limit + "'";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -897,6 +913,7 @@ public class SQLConnection {
 
 
     //Capital City Report 2
+    @RequestMapping("capitalRep2")
     public ArrayList<City> getCapitalCityReport2()
     {
         try
@@ -906,9 +923,9 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city"
+                            + " LEFT JOIN country"
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
                             + " GROUP BY country.Continent";
@@ -937,6 +954,7 @@ public class SQLConnection {
     }
 
     //Capital City Report 3
+    @RequestMapping("capitalRep3")
     public ArrayList<City> getCapitalCityReport3()
     {
         try
@@ -946,9 +964,9 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city"
+                            + " LEFT JOIN country"
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
                             + " GROUP BY country.Region";
@@ -976,7 +994,8 @@ public class SQLConnection {
         }
     }
     //Capital City Report 4
-    public ArrayList<City> getCapitalCityReport4(int limit)
+    @RequestMapping("capitalRep4")
+    public ArrayList<City> getCapitalCityReport4(@RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -985,12 +1004,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city"
+                            + " LEFT JOIN country"
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT '" + limit + "'"
+                            + " LIMIT " + limit
                             + " GROUP BY country.Region" ;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -1017,7 +1036,8 @@ public class SQLConnection {
     }
 
     //Capital City Report 5
-    public ArrayList<City> getCapitalCityReport3(int limit)
+    @RequestMapping("capitalRep5")
+    public ArrayList<City> getCapitalCityReport3(@RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -1026,12 +1046,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM city "
+                            + " LEFT JOIN country "
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT '" + limit + "'"
+                            + " LIMIT " + limit
                             + " GROUP BY country.Continent";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -1058,7 +1078,8 @@ public class SQLConnection {
     }
 
     //Capital City Report 6
-    public ArrayList<City> getCapitalCityReport6(int limit)
+    @RequestMapping("capitalRep6")
+    public ArrayList<City> getCapitalCityReport6(@RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -1068,11 +1089,11 @@ public class SQLConnection {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                            + " FROM city "
+                            + " LEFT JOIN country "
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT '" + limit + "'"
+                            + " LIMIT " + limit
                             + " GROUP BY country.Region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -1106,7 +1127,8 @@ public class SQLConnection {
     //Start of Language Reports
     
     //Langauge Report
-    public ArrayList<City> getLanguageReport(int limit)
+    @RequestMapping("languageReport")
+    public ArrayList<City> getLanguageReport(@RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -1116,11 +1138,11 @@ public class SQLConnection {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city "
-                            + "LEFT JOIN country "
+                            + " FROM city "
+                            + " LEFT JOIN country "
                             + " ON country.CountryCode = city.CountryCode "
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT '" + limit + "'"
+                            + " LIMIT " + limit
                             + " GROUP BY country.Region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -1145,6 +1167,6 @@ public class SQLConnection {
             return null;
         }
     }
-*/
+
     // End of Language Reports
 }

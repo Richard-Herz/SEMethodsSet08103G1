@@ -9,28 +9,28 @@ public class Country {
 
     public String Continent;
 
-  //  public String Region;
+    public String Region;
 
-  //  public float surfaceArea;
+    public float surfaceArea;
 
- //   public int indepYear;
+    public int indepYear;
 
     public int Population;
 
-  //  public float lifeExpectancy;
+    public float lifeExpectancy;
 
-    //public float GNP;
+    public float GNP;
 
-    //public float gnpOld;
+    public float gnpOld;
 
-  //  public String localName;
+    public String localName;
 
-  //  public String governmentForm;
+    public String governmentForm;
 
-   // public String headOfState;
+    public String headOfState;
 
     public int Capital;
 
-   // public String code2;
+    public String code2;
 
 }
