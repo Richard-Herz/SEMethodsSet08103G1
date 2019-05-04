@@ -1,12 +1,11 @@
 package SEMethodsSet088103G1CW;
 
-public class City {
+public class CapitalCity {
 
     public String Name;
 
-    public String CountryCode;
-
-    public String District;
+    public String CountryName;
 
     public int Population;
+
 }

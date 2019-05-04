@@ -28,7 +28,7 @@ public class Tests
         Country c = new Country();
         c.Name = null;
         c.Code = null;
-        c.Capital = 0;
+        c.Capital = "";
         ArrayList<Country> arrC = new ArrayList<>();
         //connection.displayCountry(arrC);
     }
@@ -46,7 +46,7 @@ public class Tests
         c.Population = 70000000;
       //  c.Region = "Some Region";
        // c.headOfState = "Elizabeth II";
-        c.Capital = 0;
+        c.Capital = "";
         ArrayList<Country> arrC = new ArrayList<>();
         arrC.add(c);
         //connection.displayCountry(arrC);
