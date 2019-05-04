@@ -15,7 +15,7 @@ ID| Name | Met | Screenshot
 2 | All the countries in a continent organised by largest population to smallest | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep2.PNG> Country Report 2</a>
 3 | All the countries in a region organised by largest population to smallest | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep3.PNG> Country Report 3</a>
 4 | The top N populated countries in the world where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep4.PNG> Country Report 4</a>
-5 | The top N populated countries in a continent where N is provided by the userThe top N populated countries in a region where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep5.PNG> Country Report 5</a>
+5 | The top N populated countries in a continent where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep5.PNG> Country Report 5</a>
 6 | The top N populated countries in a region where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep6.PNG> Country Report 6</a>
 7 | All the cities in the world organised by largest population to smallest | Yes |
 8 | All the cities in a continent organised by largest population to smallest | Yes |
