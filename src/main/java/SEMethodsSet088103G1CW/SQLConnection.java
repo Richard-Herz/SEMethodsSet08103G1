@@ -4,6 +4,7 @@ import com.mysql.cj.jdbc.exceptions.NotUpdatable;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.interceptor.CacheableOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -90,8 +91,11 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             //Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Population, country.Continent, country.Capital "
+                    "SELECT country.Code, country.Name, country.Population, country.Continent, city.Name "
                             + "FROM country "
+                            + "JOIN city ON "
+                            + "country.Code=city.CountryCode "
+                            + "WHERE city.ID = country.Capital "
                             + "ORDER BY country.Population DESC";
             //Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -104,7 +108,7 @@ public class SQLConnection {
                 country.Name = rset.getString("country.Name");
                 country.Population = rset.getInt("country.Population");
                 country.Continent = rset.getString("country.Continent");
-                country.Capital = rset.getInt("country.Capital");
+                country.Capital = rset.getString("city.Name");
                 countries.add(country);
             }
             return countries;
@@ -139,7 +143,7 @@ public class SQLConnection {
             {
                 Country country = new Country();
                 country.Code = rset.getString("Code");
-                country.Capital = rset.getInt("Capital");
+                country.Capital = rset.getString("Capital");
                 country.Population = rset.getInt("Population");
                 return country;
             }
@@ -265,8 +269,11 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name "
                             + "FROM country "
+                            + "JOIN city ON "
+                            + "country.Code=city.CountryCode "
+                            + "WHERE city.ID = country.Capital "
                             + " ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -280,7 +287,7 @@ public class SQLConnection {
                 country.Continent = rset.getString("Continent");
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
-                country.Capital = rset.getInt("Capital");
+                country.Capital = rset.getString("city.Name");
                 lst.add(country);
             }
 
@@ -305,9 +312,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name "
                             + "FROM country "
-                            + "WHERE country.Continent = '" + continent + "'"
+                            + "JOIN city ON "
+                            + "country.Code=city.CountryCode "
+                            + "WHERE city.ID = country.Capital "
+                            + "AND country.Continent = '" + continent + "'"
                             + " ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -321,7 +331,7 @@ public class SQLConnection {
                 country.Continent = rset.getString("Continent");
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
-                country.Capital = rset.getInt("Capital");
+                country.Capital = rset.getString("city.Name");
                 lst.add(country);
             }
 
@@ -346,9 +356,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name "
                             + "FROM country "
-                            + "WHERE country.Region = '" + region + "'"
+                            + "JOIN city ON "
+                            + "country.Code=city.CountryCode "
+                            + "WHERE city.ID = country.Capital "
+                            + "AND country.Region = '" + region + "'"
                             + " ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -362,7 +375,7 @@ public class SQLConnection {
                 country.Continent = rset.getString("Continent");
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
-                country.Capital = rset.getInt("Capital");
+                country.Capital = rset.getString("city.Name");
                 lst.add(country);
             }
 
@@ -387,8 +400,11 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name "
                             + "FROM country "
+                            + "JOIN city ON "
+                            + "country.Code=city.CountryCode "
+                            + "WHERE city.ID = country.Capital "
                             + " ORDER BY country.Population DESC"
                             + " LIMIT " + limit;
             // Execute SQL statement
@@ -403,7 +419,7 @@ public class SQLConnection {
                 country.Continent = rset.getString("Continent");
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
-                country.Capital = rset.getInt("Capital");
+                country.Capital = rset.getString("city.Name");
                 lst.add(country);
             }
 
@@ -428,9 +444,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name "
                             + "FROM country "
-                            + " WHERE country.Continent = '" + continent + "'"
+                            + "JOIN city ON "
+                            + "country.Code=city.CountryCode "
+                            + "WHERE city.ID = country.Capital "
+                            + "AND country.Continent = '" + continent + "'"
                             + " ORDER BY country.Population DESC"
                             + " LIMIT " + limit;
             // Execute SQL statement
@@ -445,7 +464,7 @@ public class SQLConnection {
                 country.Continent = rset.getString("Continent");
                 country.Region = rset.getString("Region");
                 country.Population = rset.getInt("Population");
-                country.Capital = rset.getInt("Capital");
+                country.Capital = rset.getString("city.Name");
                 lst.add(country);
             }
 
@@ -470,9 +489,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name "
                             + "FROM country "
-                            + " WHERE country.Region = '" + region + "'"
+                            + "JOIN city ON "
+                            + "country.Code=city.CountryCode "
+                            + "WHERE city.ID = country.Capital "
+                            + "AND country.Region = '" + region + "'"
                             + " ORDER BY country.Population DESC"
                             + " LIMIT " + limit;
             // Execute SQL statement
@@ -482,12 +504,12 @@ public class SQLConnection {
             while (rset.next())
             {
                 Country country = new Country();
-                country.Code = rset.getString("Code");
-                country.Name = rset.getString("Name");
-                country.Continent = rset.getString("Continent");
-                country.Region = rset.getString("Region");
-                country.Population = rset.getInt("Population");
-                country.Capital = rset.getInt("Capital");
+                country.Code = rset.getString("country.Code");
+                country.Name = rset.getString("country.Name");
+                country.Continent = rset.getString("country.Continent");
+                country.Region = rset.getString("country.Region");
+                country.Population = rset.getInt("country.Population");
+                country.Capital = rset.getString("city.Name");
                 lst.add(country);
             }
 
@@ -516,7 +538,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District"
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
                             + " FROM city "
                             + " ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -554,7 +576,7 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District"
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
                             + " FROM city "
                             + " WHERE city.CountryCode = '" + code + "'"
                             + " ORDER BY city.Population DESC";
@@ -743,7 +765,7 @@ public class SQLConnection {
 
     //City Report 7
     @RequestMapping("cityRep7")
-    public ArrayList<City> getCityReport7()
+    public ArrayList<City> getCityReport7(@RequestParam(value = "continent") String continent)
     {
         try
         {
@@ -752,12 +774,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District"
-                            + " FROM city"
-                            + " LEFT JOIN country "
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " GROUP BY country.Continent";
+                    "SELECT country.Continent, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE country.Continent = '" + continent + "'"
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -784,7 +806,7 @@ public class SQLConnection {
 
     //City Report 8
     @RequestMapping("cityRep8")
-    public ArrayList<City> getCityReport8()
+    public ArrayList<City> getCityReport8(@RequestParam(value = "region") String region)
     {
         try
         {
@@ -793,12 +815,12 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District"
-                            + " FROM city"
-                            + " LEFT JOIN country "
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " GROUP BY country.Region";
+                    "SELECT country.Region, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE country.Region = '" + region + "'"
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
@@ -825,7 +847,8 @@ public class SQLConnection {
 
     //City Report 9
     @RequestMapping("cityRep9")
-    public ArrayList<City> getCityReport9(@RequestParam(value = "limit") int limit)
+    public ArrayList<City> getCityReport9(@RequestParam(value = "continent") String continent,
+                                          @RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -834,12 +857,11 @@ public class SQLConnection {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
-                            + " FROM city"
-                            + " LEFT JOIN country "
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " GROUP BY country.Continent"
+                    "SELECT country.Continent, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE country.Continent = '" + continent + "'"
                             + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -867,7 +889,8 @@ public class SQLConnection {
 
     //City Report 10
     @RequestMapping("cityRep10")
-    public ArrayList<City> getCityReport10(@RequestParam(value = "limit") int limit)
+    public ArrayList<City> getCityReport10(@RequestParam(value = "region") String region,
+                                           @RequestParam(value = "limit") int limit)
     {
         try
         {
@@ -877,10 +900,10 @@ public class SQLConnection {
             // Create string for SQL statement
             String strSelect =
                     "SELECT country.Region, city.Name, city.CountryCode, city.District, city.Population"
-                            + " FROM city"
-                            + " LEFT JOIN country"
-                            + " ON country.Code = city.CountryCode "
-                            + " GROUP BY country.Region, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE country.Region = '" + region + "'"
                             + " ORDER BY city.Population DESC"
                             + " LIMIT " + limit;
             // Execute SQL statement
@@ -914,33 +937,32 @@ public class SQLConnection {
 
     //Capital City Report 2
     @RequestMapping("capitalRep2")
-    public ArrayList<City> getCapitalCityReport2()
+    public ArrayList<CapitalCity> getCapitalCityReport2()
     {
         try
         {
-            ArrayList<City> lst = new ArrayList<>();
+            ArrayList<CapitalCity> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
+                    "SELECT city.Name, country.Name, city.Population"
                             + " FROM city"
-                            + " LEFT JOIN country"
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " GROUP BY country.Continent";
+                            + " JOIN country"
+                            + " ON country.Code = city.CountryCode "
+                            + " WHERE city.ID = country.Capital"
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
             while (rset.next())
             {
-                City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
-                lst.add(city);
+                CapitalCity capital = new CapitalCity();
+                capital.Name = rset.getString("Name");
+                capital.CountryName = rset.getString("country.Name");
+                capital.Population = rset.getInt("Population");
+                lst.add(capital);
             }
 
             return lst;
@@ -955,33 +977,33 @@ public class SQLConnection {
 
     //Capital City Report 3
     @RequestMapping("capitalRep3")
-    public ArrayList<City> getCapitalCityReport3()
+    public ArrayList<CapitalCity> getCapitalCityReport3(@RequestParam(value = "continent") String continent)
     {
         try
         {
-            ArrayList<City> lst = new ArrayList<>();
+            ArrayList<CapitalCity> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
-                            + " FROM city"
-                            + " LEFT JOIN country"
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " GROUP BY country.Region";
+                    "SELECT country.Continent, city.Name, city.CountryCode, city.District, city.Population, country.Name"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE city.ID = country.Capital"
+                            + " AND country.Continent = '" + continent + "'"
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
             while (rset.next())
             {
-                City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
-                lst.add(city);
+                CapitalCity capital = new CapitalCity();
+                capital.Name = rset.getString("city.Name");
+                capital.CountryName = rset.getString("country.Name");
+                capital.Population = rset.getInt("Population");
+                lst.add(capital);
             }
 
             return lst;
@@ -995,34 +1017,33 @@ public class SQLConnection {
     }
     //Capital City Report 4
     @RequestMapping("capitalRep4")
-    public ArrayList<City> getCapitalCityReport4(@RequestParam(value = "limit") int limit)
+    public ArrayList<CapitalCity> getCapitalCityReport4(@RequestParam(value = "region") String region)
     {
         try
         {
-            ArrayList<City> lst = new ArrayList<>();
+            ArrayList<CapitalCity> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
-                            + " FROM city"
-                            + " LEFT JOIN country"
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " LIMIT " + limit
-                            + " GROUP BY country.Region" ;
+                    "SELECT country.Name, country.Region, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE city.ID = country.Capital"
+                            + " AND country.Region = '" + region + "'"
+                            + " ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
             while (rset.next())
             {
-                City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
-                lst.add(city);
+                CapitalCity capital = new CapitalCity();
+                capital.Name = rset.getString("city.Name");
+                capital.CountryName = rset.getString("country.Name");
+                capital.Population = rset.getInt("Population");
+                lst.add(capital);
             }
 
             return lst;
@@ -1037,34 +1058,34 @@ public class SQLConnection {
 
     //Capital City Report 5
     @RequestMapping("capitalRep5")
-    public ArrayList<City> getCapitalCityReport3(@RequestParam(value = "limit") int limit)
+    public ArrayList<CapitalCity> getCapitalCityReport3(@RequestParam(value = "continent") String continent,
+                                                        @RequestParam(value = "limit") int limit)
     {
         try
         {
-            ArrayList<City> lst = new ArrayList<>();
+            ArrayList<CapitalCity> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population"
-                            + " FROM city "
-                            + " LEFT JOIN country "
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " LIMIT " + limit
-                            + " GROUP BY country.Continent";
+                    "SELECT country.Name, country.Continent, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE city.ID = country.Capital"
+                            + " AND country.Continent = '" + continent + "'"
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
             while (rset.next())
             {
-                City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
-                lst.add(city);
+                CapitalCity capital = new CapitalCity();
+                capital.Name = rset.getString("city.Name");
+                capital.CountryName = rset.getString("country.Name");
+                capital.Population = rset.getInt("Population");
+                lst.add(capital);
             }
 
             return lst;
@@ -1079,34 +1100,33 @@ public class SQLConnection {
 
     //Capital City Report 6
     @RequestMapping("capitalRep6")
-    public ArrayList<City> getCapitalCityReport6(@RequestParam(value = "limit") int limit)
+    public ArrayList<CapitalCity> getCapitalCityReport6(@RequestParam(value = "limit") int limit)
     {
         try
         {
-            ArrayList<City> lst = new ArrayList<>();
+            ArrayList<CapitalCity> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                    "SELECT city.Name, country.Name, city.Population "
                             + " FROM city "
-                            + " LEFT JOIN country "
-                            + " ON country.CountryCode = city.CountryCode "
+                            + " JOIN country "
+                            + " ON country.Code = city.CountryCode "
+                            + " WHERE city.ID = country.Capital"
                             + " ORDER BY city.Population DESC"
-                            + " LIMIT " + limit
-                            + " GROUP BY country.Region";
+                            + " LIMIT " + limit;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
             while (rset.next())
             {
-                City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
-                lst.add(city);
+                CapitalCity capital = new CapitalCity();
+                capital.Name = rset.getString("Name");
+                capital.CountryName = rset.getString("country.Name");
+                capital.Population = rset.getInt("Population");
+                lst.add(capital);
             }
 
             return lst;
@@ -1122,17 +1142,59 @@ public class SQLConnection {
 
     //Start of Population Reports
 
+    @RequestMapping("popRep1")
+    public ArrayList<Population> getPopReport1(@RequestParam(value = "continent") String continent)
+    {
+        try
+        {
+            ArrayList<Population> lst = new ArrayList<>();
+
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            // WHERE country.Code =city.CountryCode AND country.Name = '" + "China" + "'
+            // WHERE country.Continent = '" + continent + "'
+            String strSelect =
+                    "SELECT SUM(city.Population) as cityPop , SUM(country.Population) as noneCity"
+                            + " FROM city "
+                            + " JOIN country "
+                            + " ON country.Code = city.CountryCode"
+                            + " WHERE country.Code =city.CountryCode"
+                            //+ " AND country.Continent = '" + continent + "'"
+                            + " GROUP BY country.Continent";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                Population pop = new Population();
+                pop.populationCity = rset.getLong("cityPop");
+                //pop.populationNotCity = rset.getInt("noneCity");
+                pop.populationNotCity =rset.getLong("noneCity");
+                lst.add(pop);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
     // End of Population Reports
 
     //Start of Language Reports
     
     //Langauge Report
     @RequestMapping("languageReport")
-    public ArrayList<City> getLanguageReport(@RequestParam(value = "limit") int limit)
+    public ArrayList<CapitalCity> getLanguageReport(@RequestParam(value = "limit") int limit)
     {
         try
         {
-            ArrayList<City> lst = new ArrayList<>();
+            ArrayList<CapitalCity> lst = new ArrayList<>();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -1150,12 +1212,11 @@ public class SQLConnection {
             // Check one is returned
             while (rset.next())
             {
-                City city = new City();
-                city.Name = rset.getString("Name");
-                city.CountryCode = rset.getString("CountryCode");
-                city.District = rset.getString("District");
-                city.Population = rset.getInt("Population");
-                lst.add(city);
+                CapitalCity capital = new CapitalCity();
+                capital.Name = rset.getString("Name");
+                capital.CountryName = rset.getString("country.Name");
+                capital.Population = rset.getInt("Population");
+                lst.add(capital);
             }
 
             return lst;
