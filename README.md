@@ -17,20 +17,20 @@ ID| Name | Met | Screenshot
 4 | The top N populated countries in the world where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep4.PNG> Country Report 4</a>
 5 | The top N populated countries in a continent where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep5.PNG> Country Report 5</a>
 6 | The top N populated countries in a region where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CountryRep6.PNG> Country Report 6</a>
-7 | All the cities in the world organised by largest population to smallest | Yes |
-8 | All the cities in a continent organised by largest population to smallest | Yes |
+7 | All the cities in the world organised by largest population to smallest | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep1.PNG> City Report 1</a>
+8 | All the cities in a continent organised by largest population to smallest | Yes | 
 9 | All the cities in a region organised by largest population to smallest | Yes |
-10 | All the cities in a country organised by largest population to smallest | Yes |
-11 | All the cities in a district organised by largest population to smallest | Yes |
-12 | The top N populated cities in the world where N is provided by the user | Yes |
+10 | All the cities in a country organised by largest population to smallest | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep2.PNG> City Report 2</a>
+11 | All the cities in a district organised by largest population to smallest | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep3.PNG> City Report 3</a>
+12 | The top N populated cities in the world where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep4.PNG> City Report 4</a>
 13 | The top N populated cities in a continent where N is provided by the user | Yes |
 14 | The top N populated cities in a region where N is provided by the user | Yes |
-15 | The top N populated cities in a country where N is provided by the user | Yes |
-16 | The top N populated cities in a district where N is provided by the user | Yes |
-17 | All the capital cities in the world organised by largest population to smallest | Yes |
+15 | The top N populated cities in a country where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep5.PNG> City Report 5</a>
+16 | The top N populated cities in a district where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep6.PNG> City Report 6</a>
+17 | All the capital cities in the world organised by largest population to smallest | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep2.PNG> Capital City Report 2</a>
 18 | All the capital cities in a continent organised by largest population to smallest | Yes |
 19 | All the capital cities in a region organised by largest to smallest | Yes |
-20 | The top N populated capital cities in the world where N is provided by the user | Yes |
+20 | The top N populated capital cities in the world where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CityRep6.PNG> Capital City Report 6</a>
 21 | The top N populated capital cities in a continent where N is provided by the user | Yes |
 22 | The top N populated capital cities in a region where N is provided by the user | Yes |
 23 | The population of people, people living in cities, and people not living in cities in each continent | Yes |
