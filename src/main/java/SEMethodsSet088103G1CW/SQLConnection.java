@@ -934,7 +934,47 @@ public class SQLConnection {
 
     // Start of Capital city reports
 
+    @RequestMapping("capitalRep1")
+    public ArrayList<CapitalCity> getCapitalRep1(@RequestParam(value = "region") String region,
+                                           @RequestParam(value = "limit") int limit)
+    {
+        try
+        {
+            ArrayList<CapitalCity> lst = new ArrayList<>();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Name, country.Region, city.Name, city.CountryCode, city.District, city.Population"
+                            + " FROM country"
+                            + " JOIN city ON"
+                            + " country.Code = city.CountryCode "
+                            + " WHERE city.ID = country.Capital"
+                            + " AND country.Region = '" + region + "'"
+                            + " ORDER BY city.Population DESC"
+                            + " LIMIT " + limit;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                CapitalCity city = new CapitalCity();
+                city.Name = rset.getString("city.Name");
+                city.CountryName = rset.getString("country.Name");
+                city.Population = rset.getInt("Population");
+                lst.add(city);
+            }
 
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
     //Capital City Report 2
     @RequestMapping("capitalRep2")
     public ArrayList<CapitalCity> getCapitalCityReport2()

@@ -19,49 +19,13 @@ public class MainWin
      * Connection to MySQL database.
      */
 
-    public static void main(String[] args)
-    {
-        //working connection and disconnect
-        /*
-        connection.connect("localhost:33060");
+    public static void main(String[] args) {
 
-        ArrayList<Country> arrC = connection.getCountryReport1();
-        connection.displayCountry(arrC);
-
-        connection.disconnect();
-        */
-
-        // Connect to database
-
-        //this is the endpoint we need for our program, no idea where to put it
-        //35.242.135.235:3306
-        if (args.length < 1)
-        {
+        if (args.length < 1) {
             connection.connect("localhost:33060");
-
-        }
-        else
-        {
+        } else {
             connection.connect(args[0]);
-
         }
-
-
-        //ArrayList<Country> arrC = connection.getCountryReport1();
-        //connection.displayCountry(arrC);
         SpringApplication.run(MainWin.class, args);
-
-
-        //test statement to see if print method works
-        //Country country = connection.getPopulation(103000);
-
-
-        //connection.displayCountry(country);
-
-
-
-
     }
-
-
 }
