@@ -1183,24 +1183,25 @@ public class SQLConnection {
     //Start of Population Reports
 
     @RequestMapping("popRep1")
-    public ArrayList<Population> getPopReport1(@RequestParam(value = "continent") String continent)
+    public ArrayList<PopulationContinent> getPopReport1(@RequestParam(value = "continent") String continent)
     {
         try
         {
-            ArrayList<Population> lst = new ArrayList<>();
+            ArrayList<PopulationContinent> lst = new ArrayList<>();
 
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             // WHERE country.Code =city.CountryCode AND country.Name = '" + "China" + "'
             // WHERE country.Continent = '" + continent + "'
             String strSelect =
-                    "SELECT SUM(city.Population) as cityPop , SUM(country.Population) as noneCity"
+                    "SELECT SUM(city.Population) as cityPop, country.Population as totalPop, country.Name"
                             + " FROM city "
                             + " JOIN country "
                             + " ON country.Code = city.CountryCode"
                             + " WHERE country.Code =city.CountryCode"
-                            //+ " AND country.Continent = '" + continent + "'"
-                            + " GROUP BY country.Continent";
+                            + " AND country.Code = '" + continent + "'"
+                            + " AND city.CountryCode = '" + continent + "'";
+
 
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -1208,10 +1209,103 @@ public class SQLConnection {
             // Check one is returned
             while (rset.next())
             {
-                Population pop = new Population();
+                PopulationContinent pop = new PopulationContinent();
                 pop.populationCity = rset.getLong("cityPop");
                 //pop.populationNotCity = rset.getInt("noneCity");
                 pop.populationNotCity =rset.getLong("noneCity");
+                lst.add(pop);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    @RequestMapping("popRep3")
+    public ArrayList<PopulationRegion> getPopReport3(@RequestParam(value = "region") String region)
+    {
+        try
+        {
+            ArrayList<PopulationRegion> lst = new ArrayList<>();
+
+            Statement stmt = con.createStatement();
+
+
+            String strSelect =
+                    "SELECT SUM(city.Population) as cityPop, SUM(country.Population), country.Region"
+                            + " FROM city "
+                            + " INNER JOIN country "
+                            + " ON country.Code = city.CountryCode"
+                            + " WHERE country.Code =city.CountryCode"
+                            //+ " AND SUM(country.Population) as totalPop"
+                            + " AND country.Region = '" + region + "'";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                PopulationRegion pop = new PopulationRegion();
+                pop.RegionName = rset.getString("country.Region");
+                pop.populationCity = rset.getFloat("cityPop");
+                pop.populationTotal = rset.getFloat("totalPop");
+                //pop.populationTotal = 123123123;
+
+                pop.populationNotCity = pop.populationTotal - pop.populationCity;
+                pop.populationCityPercentage= (pop.populationCity/pop.populationTotal*100);
+                pop.populationNotCityPercentage = (100 - pop.populationCityPercentage);
+                lst.add(pop);
+            }
+
+            return lst;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    @RequestMapping("popRep2")
+    public ArrayList<PopulationCountry> getPopReport2(@RequestParam(value = "code") String country)
+    {
+        try
+        {
+            ArrayList<PopulationCountry> lst = new ArrayList<>();
+
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            // WHERE country.Code =city.CountryCode AND country.Name = '" + "China" + "'
+            // WHERE country.Continent = '" + continent + "'
+            String strSelect =
+                    "SELECT SUM(city.Population) as cityPop, country.Population as totalPop, country.Name"
+                            + " FROM city "
+                            + " JOIN country "
+                            + " ON country.Code = city.CountryCode"
+                            + " WHERE country.Code =city.CountryCode"
+                            + " AND country.Code = '" + country + "'"
+                            + " AND city.CountryCode = '" + country + "'";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                PopulationCountry pop = new PopulationCountry();
+                pop.CountryName = rset.getString("country.Name");
+                pop.populationCity = rset.getFloat("cityPop");
+                pop.populationTotal = rset.getFloat("totalPop");
+                pop.populationNotCity = pop.populationTotal - pop.populationCity;
+                pop.populationCityPercentage= (pop.populationCity/pop.populationTotal*100);
+                pop.populationNotCityPercentage = (100 - pop.populationCityPercentage);
                 lst.add(pop);
             }
 
