@@ -1517,5 +1517,4 @@ public class SQLConnection {
             return null;
         }
     }
-
 }
