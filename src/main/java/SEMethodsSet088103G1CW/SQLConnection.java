@@ -229,7 +229,7 @@ public class SQLConnection {
             if (rset.next())
             {
                 Language language = new Language();
-                language.percentage = rset.getFloat("Percentage");
+                language.lanPercentage = rset.getFloat("Percentage");
                 language.language = rset.getString("Language");
                 return language;
             }
@@ -1242,7 +1242,7 @@ public class SQLConnection {
                             + " INNER JOIN country "
                             + " ON country.Code = city.CountryCode"
                             + " WHERE country.Code =city.CountryCode"
-                            //+ " AND SUM(country.Population) as totalPop"
+                            + " AND city.CountryCode =(select city.CountryCode from country join city on city.CountryCode=country.Code where city.CountryCode = coutnry.Code)"
                             + " AND country.Region = '" + region + "'";
 
             // Execute SQL statement
@@ -1320,40 +1320,30 @@ public class SQLConnection {
     }
     // End of Population Reports
 
-    //Start of Language Reports
-    
-    //Langauge Report
-    @RequestMapping("languageReport")
-    public ArrayList<CapitalCity> getLanguageReport(@RequestParam(value = "limit") int limit)
+    //Organization reports
+    @RequestMapping("worldPop")
+    public WorldPop worldPop()
     {
-        try
-        {
-            ArrayList<CapitalCity> lst = new ArrayList<>();
+        try{
+            WorldPop totalpop= new WorldPop();
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
-                            + " FROM city "
-                            + " LEFT JOIN country "
-                            + " ON country.CountryCode = city.CountryCode "
-                            + " ORDER BY city.Population DESC"
-                            + " LIMIT " + limit
-                            + " GROUP BY country.Region";
+                    "SELECT SUM(country.Population) as WorldPop"
+                            + " FROM country ";
+
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
             while (rset.next())
             {
-                CapitalCity capital = new CapitalCity();
-                capital.Name = rset.getString("Name");
-                capital.CountryName = rset.getString("country.Name");
-                capital.Population = rset.getInt("Population");
-                lst.add(capital);
+                totalpop.Population = rset.getFloat("WorldPop");
+
             }
 
-            return lst;
+            return totalpop;
         }
         catch (Exception e)
         {
@@ -1363,5 +1353,169 @@ public class SQLConnection {
         }
     }
 
-    // End of Language Reports
+    @RequestMapping("continentPop")
+    public WorldPop continentPop(@RequestParam(value = "continent") String continent)
+    {
+        try{
+            WorldPop totalpop= new WorldPop();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT SUM(country.Population) as continentPop"
+                            + " FROM country "
+                            + "WHERE country.Continent = '" + continent + "'";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                totalpop.Population = rset.getFloat("continentPop");
+
+            }
+
+            return totalpop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    @RequestMapping("regionPop")
+    public WorldPop regionPop(@RequestParam(value = "region") String region)
+    {
+        try{
+            WorldPop totalpop= new WorldPop();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT SUM(country.Population) as regionPop"
+                            + " FROM country "
+                            + "WHERE country.Region = '" + region + "'";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                totalpop.Population = rset.getFloat("regionPop");
+
+            }
+
+            return totalpop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    @RequestMapping("countryPop")
+    public WorldPop countryPop(@RequestParam(value = "country") String country)
+    {
+        try{
+            WorldPop totalpop= new WorldPop();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Population"
+                            + " FROM country "
+                            + "WHERE country.Name = '" + country + "'";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                totalpop.Population = rset.getFloat("country.Population");
+
+            }
+
+            return totalpop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    @RequestMapping("districtPop")
+    public WorldPop districtPop(@RequestParam(value = "district") String district)
+    {
+        try{
+            WorldPop totalpop= new WorldPop();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT SUM(city.Population) as districtPop"
+                            + " FROM city "
+                            + " WHERE city.District = '" + district + "'";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                totalpop.Population = rset.getFloat("districtPop");
+
+            }
+
+            return totalpop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    @RequestMapping("cityPop")
+    public WorldPop cityPop(@RequestParam(value = "city") String city)
+    {
+        try{
+            WorldPop totalpop= new WorldPop();
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Population"
+                            + " FROM city "
+                            + " WHERE city.Name = '" + city + "'";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            while (rset.next())
+            {
+                totalpop.Population = rset.getFloat("city.Population");
+
+            }
+
+            return totalpop;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
 }
