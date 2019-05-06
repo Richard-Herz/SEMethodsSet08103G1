@@ -38,3 +38,12 @@ ID| Name | Met | Screenshot
 25 | The population of people, people living in cities, and people not living in cities in each country | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/PopReport1.PNG> Capital City Rep 3 </a>
 26 | The organisation has asked if it is possible to provide the number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population | Yes |
 
+27 | The population of the world. | Yes |
+28 | The population of a continent. | Yes |
+29 | The population of the region. | Yes |
+30 | The population of the country. | Yes |
+31 | The population of the district. | Yes |
+32 | The population of the city. | Yes |
+
+
+
