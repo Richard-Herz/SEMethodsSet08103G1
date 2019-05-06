@@ -33,16 +33,16 @@ ID| Name | Met | Screenshot
 20 | The top N populated capital cities in the world where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CapitalCityRep6.PNG> Capital City Report 3</a>
 21 | The top N populated capital cities in a continent where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CapitalCityRep5.PNG> Capital City Report 4</a>
 22 | The top N populated capital cities in a region where N is provided by the user | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/CapitalCityRep1.PNG> Capital City Report 5</a>
-23 | The population of people, people living in cities, and people not living in cities in each continent | Yes |
-24 | The population of people, people living in cities, and people not living in cities in each region | Yes |
-25 | The population of people, people living in cities, and people not living in cities in each country | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/PopReport1.PNG> Capital City Rep 3 </a>
+23 | The population of people, people living in cities, and people not living in cities in each continent | No |
+24 | The population of people, people living in cities, and people not living in cities in each region | No |
+25 | The population of people, people living in cities, and people not living in cities in each country | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/PopReport1.PNG> Pop in City Rep  </a>
 26 | The organisation has asked if it is possible to provide the number of people who speak the following the following languages from greatest number to smallest, including the percentage of the world population | Yes |
-27 | The population of the world. | Yes |
-28 | The population of a continent. | Yes |
-29 | The population of the region. | Yes |
-30 | The population of the country. | Yes |
-31 | The population of the district. | Yes |
-32 | The population of the city. | Yes |
+27 | The population of the world. | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/worldPop.PNG> World Pop Report </a>
+28 | The population of a continent. | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/continentPop.PNG> Continent Pop Report </a>
+29 | The population of the region. | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/regionPop.PNG> Region Pop Report </a>
+30 | The population of the country. | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/countryPop.PNG> Country Pop Report </a>
+31 | The population of the district. | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/districtPop.PNG> District Pop Report </a>
+32 | The population of the city. | Yes | <a href= https://github.com/Richard-Herz/SEMethodsSet08103G1/blob/master/SQLREPORTScreenshots/cityPop.PNG> City Pop Report </a>
 
 
 
